@@ -35,15 +35,14 @@
     canvas.height = height;
 
     const finishZone = { x: width - 150, y: height / 2 - 100, w: 100, h: 200 };
-    const horseCount = 12;
+    const horseNames = [
+      "Harrison", "Jonathan", "Frank", "Jake", "Josh", "Ryan", "Jeff", "Dylan", "Joe", "Eric", "Andrew", "Tinos"
+    ];
     const horses = [];
     const finishedHorses = [];
     const walls = [];
     const zones = [];
-    const colors = [
-      '#ff5555', '#55ff55', '#5555ff', '#ffff55', '#ff55ff', '#55ffff',
-      '#ffffff', '#ffaa00', '#00ffaa', '#aa00ff', '#ff00aa', '#00aaff'
-    ];
+    const images = {};
 
     const urlParams = new URLSearchParams(window.location.search);
     let seed = urlParams.get('seed') || Date.now().toString();
@@ -53,20 +52,33 @@
       return rng() * (max - min) + min;
     }
 
+    function preloadImages(callback) {
+      let loaded = 0;
+      for (const name of horseNames) {
+        const img = new Image();
+        img.src = `${name}.jpg`;
+        img.onload = () => {
+          loaded++;
+          if (loaded === horseNames.length) callback();
+        };
+        images[name] = img;
+      }
+    }
+
     function resetRace() {
       horses.length = 0;
       finishedHorses.length = 0;
       walls.length = 0;
       zones.length = 0;
 
-      for (let i = 0; i < horseCount; i++) {
+      for (let i = 0; i < horseNames.length; i++) {
         horses.push({
           x: random(50, 200),
           y: random(50, height - 50),
           vx: random(2, 4),
           vy: random(-2, 2),
-          color: colors[i % colors.length],
-          id: i + 1,
+          name: horseNames[i],
+          image: images[horseNames[i]],
           finished: false,
           speedMultiplier: 1,
           effectTimer: 0
@@ -123,11 +135,7 @@
     function drawHorses() {
       for (const horse of horses) {
         if (!horse.finished) {
-          ctx.beginPath();
-          ctx.arc(horse.x, horse.y, 15, 0, Math.PI * 2);
-          ctx.fillStyle = horse.color;
-          ctx.fill();
-          ctx.closePath();
+          ctx.drawImage(horse.image, horse.x - 20, horse.y - 20, 40, 40);
         }
       }
     }
@@ -146,15 +154,15 @@
         horse.x += horse.vx * horse.speedMultiplier;
         horse.y += horse.vy * horse.speedMultiplier;
 
-        if (horse.x < 15 || horse.x > width - 15) horse.vx *= -1 * random(0.8, 1.2);
-        if (horse.y < 15 || horse.y > height - 15) horse.vy *= -1 * random(0.8, 1.2);
+        if (horse.x < 20 || horse.x > width - 20) horse.vx *= -1 * random(0.8, 1.2);
+        if (horse.y < 20 || horse.y > height - 20) horse.vy *= -1 * random(0.8, 1.2);
 
         for (const wall of walls) {
           if (
-            horse.x + 15 > wall.x &&
-            horse.x - 15 < wall.x + wall.w &&
-            horse.y + 15 > wall.y &&
-            horse.y - 15 < wall.y + wall.h
+            horse.x + 20 > wall.x &&
+            horse.x - 20 < wall.x + wall.w &&
+            horse.y + 20 > wall.y &&
+            horse.y - 20 < wall.y + wall.h
           ) {
             if (horse.x > wall.x && horse.x < wall.x + wall.w) {
               horse.vy *= -1 * random(0.8, 1.2);
@@ -168,7 +176,7 @@
           const dx = horse.x - zone.x;
           const dy = horse.y - zone.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < zone.radius + 15) {
+          if (dist < zone.radius + 20) {
             if (zone.type === 'boost') {
               horse.speedMultiplier = 1.5;
             } else {
@@ -183,7 +191,7 @@
           const dx = horse.x - other.x;
           const dy = horse.y - other.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 30) {
+          if (dist < 40) {
             horse.vx *= -1 * random(0.8, 1.2);
             horse.vy *= -1 * random(0.8, 1.2);
           }
@@ -205,8 +213,7 @@
       leaderList.innerHTML = '';
       for (const horse of finishedHorses) {
         const li = document.createElement('li');
-        li.textContent = `Horse #${horse.id}`;
-        li.style.color = horse.color;
+        li.textContent = horse.name;
         leaderList.appendChild(li);
       }
     }
@@ -219,7 +226,7 @@
       updateHorses();
       drawHorses();
 
-      if (finishedHorses.length < horseCount) {
+      if (finishedHorses.length < horses.length) {
         requestAnimationFrame(loop);
       } else {
         setTimeout(() => {
@@ -246,8 +253,10 @@
       canvas.height = height;
     });
 
-    resetRace();
-    loop();
+    preloadImages(() => {
+      resetRace();
+      loop();
+    });
   </script>
 </body>
 </html>
