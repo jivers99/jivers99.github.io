@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seeded Bouncing Horse Race</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #111; }
+    canvas { display: block; margin: 0 auto; background: #222; }
+    #controls { position: absolute; top: 10px; left: 10px; color: white; font-family: sans-serif; }
+    button { margin-right: 10px; padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <button id="newRace">New Race</button>
+    <button id="copyLink">Copy Link</button>
+  </div>
+  <canvas id="raceCanvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/seedrandom@3.0.5/seedrandom.min.js"></script>
+  <script>
+    const canvas = document.getElementById('raceCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const finishZone = { x: width - 150, y: height / 2 - 100, w: 100, h: 200 };
+    const horseCount = 12;
+    const horses = [];
+    const colors = [
+      '#ff5555', '#55ff55', '#5555ff', '#ffff55', '#ff55ff', '#55ffff',
+      '#ffffff', '#ffaa00', '#00ffaa', '#aa00ff', '#ff00aa', '#00aaff'
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let seed = urlParams.get('seed') || Date.now().toString();
+    let rng = new Math.seedrandom(seed);
+
+    function random(min, max) {
+      return rng() * (max - min) + min;
+    }
+
+    function resetRace() {
+      horses.length = 0;
+      for (let i = 0; i < horseCount; i++) {
+        horses.push({
+          x: random(50, 200),
+          y: random(50, height - 50),
+          vx: random(2, 4),
+          vy: random(-2, 2),
+          color: colors[i % colors.length],
+          id: i + 1
+        });
+      }
+    }
+
+    function drawFinishZone() {
+      ctx.fillStyle = '#00FF00';
+      ctx.fillRect(finishZone.x, finishZone.y, finishZone.w, finishZone.h);
+    }
+
+    function drawHorses() {
+      for (const horse of horses) {
+        ctx.beginPath();
+        ctx.arc(horse.x, horse.y, 15, 0, Math.PI * 2);
+        ctx.fillStyle = horse.color;
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+
+    function updateHorses() {
+      for (const horse of horses) {
+        horse.x += horse.vx;
+        horse.y += horse.vy;
+
+        if (horse.x < 15 || horse.x > width - 15) horse.vx *= -1 * random(0.8, 1.2);
+        if (horse.y < 15 || horse.y > height - 15) horse.vy *= -1 * random(0.8, 1.2);
+
+        for (const other of horses) {
+          if (horse === other) continue;
+          const dx = horse.x - other.x;
+          const dy = horse.y - other.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 30) {
+            horse.vx *= -1 * random(0.8, 1.2);
+            horse.vy *= -1 * random(0.8, 1.2);
+          }
+        }
+
+        // Check finish zone
+        if (
+          horse.x > finishZone.x && horse.x < finishZone.x + finishZone.w &&
+          horse.y > finishZone.y && horse.y < finishZone.y + finishZone.h
+        ) {
+          announceWinner(horse);
+          running = false;
+        }
+      }
+    }
+
+    let running = true;
+
+    function announceWinner(winner) {
+      alert(`Horse #${winner.id} wins! 🎉`);
+    }
+
+    function loop() {
+      if (!running) return;
+      ctx.clearRect(0, 0, width, height);
+      drawFinishZone();
+      updateHorses();
+      drawHorses();
+      requestAnimationFrame(loop);
+    }
+
+    document.getElementById('newRace').addEventListener('click', () => {
+      const newSeed = Date.now().toString();
+      window.location.search = `?seed=${newSeed}`;
+    });
+
+    document.getElementById('copyLink').addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Link copied to clipboard! 📋');
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+
+    resetRace();
+    loop();
+  </script>
+</body>
+</html>
