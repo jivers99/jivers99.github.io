@@ -9,12 +9,19 @@
     canvas { display: block; margin: 0 auto; background: #222; }
     #controls { position: absolute; top: 10px; left: 10px; color: white; font-family: sans-serif; }
     button { margin-right: 10px; padding: 5px 10px; }
+    #leaderboard { position: absolute; top: 10px; right: 10px; color: white; font-family: sans-serif; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; }
+    #leaderboard h2 { margin: 0 0 5px 0; font-size: 18px; }
+    #leaderboard ol { padding-left: 20px; margin: 0; }
   </style>
 </head>
 <body>
   <div id="controls">
     <button id="newRace">New Race</button>
     <button id="copyLink">Copy Link</button>
+  </div>
+  <div id="leaderboard">
+    <h2>Leaderboard</h2>
+    <ol id="leaderList"></ol>
   </div>
   <canvas id="raceCanvas"></canvas>
 
@@ -30,6 +37,8 @@
     const finishZone = { x: width - 150, y: height / 2 - 100, w: 100, h: 200 };
     const horseCount = 12;
     const horses = [];
+    const finishedHorses = [];
+    const walls = [];
     const colors = [
       '#ff5555', '#55ff55', '#5555ff', '#ffff55', '#ff55ff', '#55ffff',
       '#ffffff', '#ffaa00', '#00ffaa', '#aa00ff', '#ff00aa', '#00aaff'
@@ -45,6 +54,9 @@
 
     function resetRace() {
       horses.length = 0;
+      finishedHorses.length = 0;
+      walls.length = 0;
+
       for (let i = 0; i < horseCount; i++) {
         horses.push({
           x: random(50, 200),
@@ -52,8 +64,30 @@
           vx: random(2, 4),
           vy: random(-2, 2),
           color: colors[i % colors.length],
-          id: i + 1
+          id: i + 1,
+          finished: false
         });
+      }
+
+      // Build walls for multiple paths
+      const midY = height / 2;
+      walls.push({ x: width/3, y: 0, w: 20, h: midY - 100 }); // vertical wall top left
+      walls.push({ x: width/3, y: midY + 100, w: 20, h: midY - 100 }); // vertical wall bottom left
+      walls.push({ x: width/2, y: 0, w: 20, h: midY - 200 });
+      walls.push({ x: width/2, y: midY + 200, w: 20, h: midY - 200 });
+      walls.push({ x: width*2/3, y: midY - 150, w: 20, h: 300 }); // center obstacle
+
+      // optional horizontal walls for more branches
+      walls.push({ x: width/3, y: midY - 100, w: 100, h: 20 });
+      walls.push({ x: width/3, y: midY + 80, w: 100, h: 20 });
+
+      updateLeaderboard();
+    }
+
+    function drawWalls() {
+      ctx.fillStyle = '#888';
+      for (const wall of walls) {
+        ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
       }
     }
 
@@ -64,24 +98,43 @@
 
     function drawHorses() {
       for (const horse of horses) {
-        ctx.beginPath();
-        ctx.arc(horse.x, horse.y, 15, 0, Math.PI * 2);
-        ctx.fillStyle = horse.color;
-        ctx.fill();
-        ctx.closePath();
+        if (!horse.finished) {
+          ctx.beginPath();
+          ctx.arc(horse.x, horse.y, 15, 0, Math.PI * 2);
+          ctx.fillStyle = horse.color;
+          ctx.fill();
+          ctx.closePath();
+        }
       }
     }
 
     function updateHorses() {
       for (const horse of horses) {
+        if (horse.finished) continue;
+
         horse.x += horse.vx;
         horse.y += horse.vy;
 
         if (horse.x < 15 || horse.x > width - 15) horse.vx *= -1 * random(0.8, 1.2);
         if (horse.y < 15 || horse.y > height - 15) horse.vy *= -1 * random(0.8, 1.2);
 
+        for (const wall of walls) {
+          if (
+            horse.x + 15 > wall.x &&
+            horse.x - 15 < wall.x + wall.w &&
+            horse.y + 15 > wall.y &&
+            horse.y - 15 < wall.y + wall.h
+          ) {
+            if (horse.x > wall.x && horse.x < wall.x + wall.w) {
+              horse.vy *= -1 * random(0.8, 1.2);
+            } else {
+              horse.vx *= -1 * random(0.8, 1.2);
+            }
+          }
+        }
+
         for (const other of horses) {
-          if (horse === other) continue;
+          if (horse === other || other.finished) continue;
           const dx = horse.x - other.x;
           const dy = horse.y - other.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -91,30 +144,42 @@
           }
         }
 
-        // Check finish zone
         if (
           horse.x > finishZone.x && horse.x < finishZone.x + finishZone.w &&
           horse.y > finishZone.y && horse.y < finishZone.y + finishZone.h
         ) {
-          announceWinner(horse);
-          running = false;
+          horse.finished = true;
+          finishedHorses.push(horse);
+          updateLeaderboard();
         }
       }
     }
 
-    let running = true;
-
-    function announceWinner(winner) {
-      alert(`Horse #${winner.id} wins! 🎉`);
+    function updateLeaderboard() {
+      const leaderList = document.getElementById('leaderList');
+      leaderList.innerHTML = '';
+      for (const horse of finishedHorses) {
+        const li = document.createElement('li');
+        li.textContent = `Horse #${horse.id}`;
+        li.style.color = horse.color;
+        leaderList.appendChild(li);
+      }
     }
 
     function loop() {
-      if (!running) return;
       ctx.clearRect(0, 0, width, height);
       drawFinishZone();
+      drawWalls();
       updateHorses();
       drawHorses();
-      requestAnimationFrame(loop);
+
+      if (finishedHorses.length < horseCount) {
+        requestAnimationFrame(loop);
+      } else {
+        setTimeout(() => {
+          alert('All horses have finished! 🎉');
+        }, 500);
+      }
     }
 
     document.getElementById('newRace').addEventListener('click', () => {
