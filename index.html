@@ -39,6 +39,7 @@
     const horses = [];
     const finishedHorses = [];
     const walls = [];
+    const zones = [];
     const colors = [
       '#ff5555', '#55ff55', '#5555ff', '#ffff55', '#ff55ff', '#55ffff',
       '#ffffff', '#ffaa00', '#00ffaa', '#aa00ff', '#ff00aa', '#00aaff'
@@ -56,6 +57,7 @@
       horses.length = 0;
       finishedHorses.length = 0;
       walls.length = 0;
+      zones.length = 0;
 
       for (let i = 0; i < horseCount; i++) {
         horses.push({
@@ -65,21 +67,33 @@
           vy: random(-2, 2),
           color: colors[i % colors.length],
           id: i + 1,
-          finished: false
+          finished: false,
+          speedMultiplier: 1,
+          effectTimer: 0
         });
       }
 
-      // Build walls for multiple paths
-      const midY = height / 2;
-      walls.push({ x: width/3, y: 0, w: 20, h: midY - 100 }); // vertical wall top left
-      walls.push({ x: width/3, y: midY + 100, w: 20, h: midY - 100 }); // vertical wall bottom left
-      walls.push({ x: width/2, y: 0, w: 20, h: midY - 200 });
-      walls.push({ x: width/2, y: midY + 200, w: 20, h: midY - 200 });
-      walls.push({ x: width*2/3, y: midY - 150, w: 20, h: 300 }); // center obstacle
+      // Build random walls
+      const wallCount = 10;
+      for (let i = 0; i < wallCount; i++) {
+        walls.push({
+          x: random(width/4, width*3/4),
+          y: random(50, height - 150),
+          w: random(40, 100),
+          h: random(20, 150)
+        });
+      }
 
-      // optional horizontal walls for more branches
-      walls.push({ x: width/3, y: midY - 100, w: 100, h: 20 });
-      walls.push({ x: width/3, y: midY + 80, w: 100, h: 20 });
+      // Build boost and slow zones
+      const zoneCount = 8;
+      for (let i = 0; i < zoneCount; i++) {
+        zones.push({
+          x: random(100, width - 200),
+          y: random(100, height - 200),
+          radius: 20,
+          type: rng() < 0.5 ? 'boost' : 'slow'
+        });
+      }
 
       updateLeaderboard();
     }
@@ -88,6 +102,16 @@
       ctx.fillStyle = '#888';
       for (const wall of walls) {
         ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
+      }
+    }
+
+    function drawZones() {
+      for (const zone of zones) {
+        ctx.beginPath();
+        ctx.arc(zone.x, zone.y, zone.radius, 0, Math.PI * 2);
+        ctx.fillStyle = zone.type === 'boost' ? '#00FF00' : '#FF0000';
+        ctx.fill();
+        ctx.closePath();
       }
     }
 
@@ -112,8 +136,15 @@
       for (const horse of horses) {
         if (horse.finished) continue;
 
-        horse.x += horse.vx;
-        horse.y += horse.vy;
+        if (horse.effectTimer > 0) {
+          horse.effectTimer--;
+          if (horse.effectTimer === 0) {
+            horse.speedMultiplier = 1;
+          }
+        }
+
+        horse.x += horse.vx * horse.speedMultiplier;
+        horse.y += horse.vy * horse.speedMultiplier;
 
         if (horse.x < 15 || horse.x > width - 15) horse.vx *= -1 * random(0.8, 1.2);
         if (horse.y < 15 || horse.y > height - 15) horse.vy *= -1 * random(0.8, 1.2);
@@ -130,6 +161,20 @@
             } else {
               horse.vx *= -1 * random(0.8, 1.2);
             }
+          }
+        }
+
+        for (const zone of zones) {
+          const dx = horse.x - zone.x;
+          const dy = horse.y - zone.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < zone.radius + 15) {
+            if (zone.type === 'boost') {
+              horse.speedMultiplier = 1.5;
+            } else {
+              horse.speedMultiplier = 0.5;
+            }
+            horse.effectTimer = 100;
           }
         }
 
@@ -170,6 +215,7 @@
       ctx.clearRect(0, 0, width, height);
       drawFinishZone();
       drawWalls();
+      drawZones();
       updateHorses();
       drawHorses();
 
