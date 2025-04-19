@@ -195,7 +195,7 @@ for (let i = 0; i < horseNames.length; i++) {
     horse.x += horse.vx;
     horse.y += horse.vy;
 
-    // Bounce off world boundaries
+    // Bounce off world boundaries (edges of the screen)
     if (horse.x < 20 || horse.x > width - 20) {
       horse.vx *= -1;
     }
@@ -215,53 +215,50 @@ for (let i = 0; i < horseNames.length; i++) {
         const overlapY = Math.min(horse.y + 20 - wall.y, wall.y + wall.h - (horse.y - 20));
 
         if (overlapX < overlapY) {
-  // horizontal bounce
-  if (Math.random() < 0.2) {
-    // Random but safe bounce
-    horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed;
-    horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
-  } else {
-    horse.vx *= -1;
-    
-    // 🛡️ failsafe: if vy is too small, kick randomly
-    if (Math.abs(horse.vy) < 0.15) {
-      horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
-    }
-  }
-} else {
-  // vertical bounce
-  if (Math.random() < 0.2) {
-    horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed;
-    horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
-  } else {
-    horse.vy *= -1;
+          // horizontal bounce
+          if (Math.random() < 0.2) {
+            // Random but safe bounce
+            horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed;
+            horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
+          } else {
+            horse.vx *= -1;
+            
+            // 🛡️ failsafe: if vy is too small, kick randomly
+            if (Math.abs(horse.vy) < 0.15) {
+              horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
+            }
+          }
 
-    // 🛡️ failsafe: if vx is too small, kick randomly
-    if (Math.abs(horse.vx) < 0.15) {
-      horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
-    }
-  }
-}
+          // Push the horse out of the wall in case of overlap
+          if (horse.x < wall.x) {
+            horse.x = wall.x - 20; // push left
+          } else {
+            horse.x = wall.x + wall.w + 20; // push right
+          }
 
-      }
-    }
-
-    // Remove the now-unused zone boosting code
-    /*
-    for (const zone of zones) {
-      const dx = horse.x - zone.x;
-      const dy = horse.y - zone.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < zone.radius + 20) {
-        if (zone.type === 'boost') {
-          horse.speedMultiplier = 1.5;
         } else {
-          horse.speedMultiplier = 0.5;
+          // vertical bounce
+          if (Math.random() < 0.2) {
+            horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed;
+            horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
+          } else {
+            horse.vy *= -1;
+
+            // 🛡️ failsafe: if vx is too small, kick randomly
+            if (Math.abs(horse.vx) < 0.15) {
+              horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
+            }
+          }
+
+          // Push the horse out of the wall in case of overlap
+          if (horse.y < wall.y) {
+            horse.y = wall.y - 20; // push up
+          } else {
+            horse.y = wall.y + wall.h + 20; // push down
+          }
         }
-        horse.effectTimer = 100;
       }
     }
-    */
 
     // Handle collisions with other horses
     for (const other of horses) {
@@ -303,6 +300,7 @@ for (let i = 0; i < horseNames.length; i++) {
     }
   }
 }
+
 
 
     function updateLeaderboard() {
