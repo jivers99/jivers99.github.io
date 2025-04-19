@@ -166,19 +166,36 @@ for (let i = 0; i < horseNames.length; i++) {
         if (horse.y < 20 || horse.y > height - 20) horse.vy *= -1 * random(0.8, 1.2);
 
         for (const wall of walls) {
-          if (
-            horse.x + 20 > wall.x &&
-            horse.x - 20 < wall.x + wall.w &&
-            horse.y + 20 > wall.y &&
-            horse.y - 20 < wall.y + wall.h
-          ) {
-            if (horse.x > wall.x && horse.x < wall.x + wall.w) {
-              horse.vy *= -1 * random(0.8, 1.2);
-            } else {
-              horse.vx *= -1 * random(0.8, 1.2);
-            }
-          }
-        }
+  if (
+    horse.x + 20 > wall.x &&
+    horse.x - 20 < wall.x + wall.w &&
+    horse.y + 20 > wall.y &&
+    horse.y - 20 < wall.y + wall.h
+  ) {
+    const overlapX = Math.min(horse.x + 20 - wall.x, wall.x + wall.w - (horse.x - 20));
+    const overlapY = Math.min(horse.y + 20 - wall.y, wall.y + wall.h - (horse.y - 20));
+
+    if (overlapX < overlapY) {
+      // horizontal bounce
+      if (Math.random() < 0.2) {
+        // random safe horizontal bounce
+        horse.vx = Math.abs(horse.vx) * (horse.x < wall.x ? -1 : 1) * random(0.8, 1.2);
+        horse.vy = random(-3, 3);
+      } else {
+        horse.vx *= -1 * random(0.8, 1.2);
+      }
+    } else {
+      // vertical bounce
+      if (Math.random() < 0.2) {
+        horse.vy = Math.abs(horse.vy) * (horse.y < wall.y ? -1 : 1) * random(0.8, 1.2);
+        horse.vx = random(-3, 3);
+      } else {
+        horse.vy *= -1 * random(0.8, 1.2);
+      }
+    }
+  }
+}
+
 
         for (const zone of zones) {
           const dx = horse.x - zone.x;
@@ -195,15 +212,25 @@ for (let i = 0; i < horseNames.length; i++) {
         }
 
         for (const other of horses) {
-          if (horse === other || other.finished) continue;
-          const dx = horse.x - other.x;
-          const dy = horse.y - other.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 40) {
-            horse.vx *= -1 * random(0.8, 1.2);
-            horse.vy *= -1 * random(0.8, 1.2);
-          }
-        }
+  if (horse === other || other.finished) continue;
+  const dx = horse.x - other.x;
+  const dy = horse.y - other.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist < 40) {
+    if (Math.random() < 0.2) {
+      // Random but safe bounce away
+      const angle = Math.atan2(dy, dx) + (Math.random() * Math.PI / 2 - Math.PI / 4); // ±45° off direct away
+      const speed = Math.sqrt(horse.vx * horse.vx + horse.vy * horse.vy) * random(0.8, 1.2);
+      horse.vx = speed * Math.cos(angle);
+      horse.vy = speed * Math.sin(angle);
+    } else {
+      // Normal bounce
+      horse.vx *= -1 * random(0.8, 1.2);
+      horse.vy *= -1 * random(0.8, 1.2);
+    }
+  }
+}
+
 
         if (
           horse.x > finishZone.x && horse.x < finishZone.x + finishZone.w &&
