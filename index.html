@@ -178,23 +178,34 @@ for (let i = 0; i < horseNames.length; i++) {
         const overlapY = Math.min(horse.y + 20 - wall.y, wall.y + wall.h - (horse.y - 20));
 
         if (overlapX < overlapY) {
-          // horizontal bounce
-          if (Math.random() < 0.2) {
-            // Random but safe horizontal bounce
-            horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed;
-            horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
-          } else {
-            horse.vx *= -1;
-          }
-        } else {
-          // vertical bounce
-          if (Math.random() < 0.2) {
-            horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed;
-            horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
-          } else {
-            horse.vy *= -1;
-          }
-        }
+  // horizontal bounce
+  if (Math.random() < 0.2) {
+    // Random but safe bounce
+    horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed;
+    horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
+  } else {
+    horse.vx *= -1;
+    
+    // 🛡️ failsafe: if vy is too small, kick randomly
+    if (Math.abs(horse.vy) < 0.15) {
+      horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
+    }
+  }
+} else {
+  // vertical bounce
+  if (Math.random() < 0.2) {
+    horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed;
+    horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
+  } else {
+    horse.vy *= -1;
+
+    // 🛡️ failsafe: if vx is too small, kick randomly
+    if (Math.abs(horse.vx) < 0.15) {
+      horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
+    }
+  }
+}
+
       }
     }
 
