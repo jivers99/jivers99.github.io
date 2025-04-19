@@ -149,14 +149,16 @@ for (let i = 0; i < horseNames.length; i++) {
     }
 
     function updateHorses() {
-  const desiredSpeed = 4; // <-- set your desired constant speed
+  const desiredSpeed = 4; // constant horse speed
 
   for (const horse of horses) {
     if (horse.finished) continue;
 
+    // Move horse
     horse.x += horse.vx;
     horse.y += horse.vy;
 
+    // Bounce off world boundaries
     if (horse.x < 20 || horse.x > width - 20) {
       horse.vx *= -1;
     }
@@ -164,6 +166,7 @@ for (let i = 0; i < horseNames.length; i++) {
       horse.vy *= -1;
     }
 
+    // Bounce off walls
     for (const wall of walls) {
       if (
         horse.x + 20 > wall.x &&
@@ -177,8 +180,8 @@ for (let i = 0; i < horseNames.length; i++) {
         if (overlapX < overlapY) {
           // horizontal bounce
           if (Math.random() < 0.2) {
-            // 20% random safe bounce
-            horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed * (Math.random() < 0.5 ? 1 : -1);
+            // Random but safe horizontal bounce
+            horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed;
             horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
           } else {
             horse.vx *= -1;
@@ -186,7 +189,7 @@ for (let i = 0; i < horseNames.length; i++) {
         } else {
           // vertical bounce
           if (Math.random() < 0.2) {
-            horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed * (Math.random() < 0.5 ? 1 : -1);
+            horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed;
             horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
           } else {
             horse.vy *= -1;
@@ -195,62 +198,64 @@ for (let i = 0; i < horseNames.length; i++) {
       }
     }
 
-    // After all movement, normalize speed to keep it clean
+    // Remove the now-unused zone boosting code
+    /*
+    for (const zone of zones) {
+      const dx = horse.x - zone.x;
+      const dy = horse.y - zone.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < zone.radius + 20) {
+        if (zone.type === 'boost') {
+          horse.speedMultiplier = 1.5;
+        } else {
+          horse.speedMultiplier = 0.5;
+        }
+        horse.effectTimer = 100;
+      }
+    }
+    */
+
+    // Handle collisions with other horses
+    for (const other of horses) {
+      if (horse === other || other.finished) continue;
+      const dx = horse.x - other.x;
+      const dy = horse.y - other.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 40) { // collision
+        if (Math.random() < 0.2) {
+          // Random but safe bounce *away* from the other horse
+          const angle = Math.atan2(dy, dx) + (Math.random() * Math.PI / 2 - Math.PI / 4); // ±45 degrees
+          horse.vx = desiredSpeed * Math.cos(angle);
+          horse.vy = desiredSpeed * Math.sin(angle);
+        } else {
+          // Normal safe bounce away (no random scaling)
+          const angle = Math.atan2(dy, dx);
+          horse.vx = desiredSpeed * Math.cos(angle);
+          horse.vy = desiredSpeed * Math.sin(angle);
+        }
+      }
+    }
+
+    // Normalize velocity to desired speed (double safety)
     const speed = Math.sqrt(horse.vx * horse.vx + horse.vy * horse.vy);
     if (speed !== 0) {
       horse.vx = (horse.vx / speed) * desiredSpeed;
       horse.vy = (horse.vy / speed) * desiredSpeed;
     }
-  }
-}
 
-
-
-        for (const zone of zones) {
-          const dx = horse.x - zone.x;
-          const dy = horse.y - zone.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < zone.radius + 20) {
-            if (zone.type === 'boost') {
-              horse.speedMultiplier = 1.5;
-            } else {
-              horse.speedMultiplier = 0.5;
-            }
-            horse.effectTimer = 100;
-          }
-        }
-
-        for (const other of horses) {
-  if (horse === other || other.finished) continue;
-  const dx = horse.x - other.x;
-  const dy = horse.y - other.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-  if (dist < 40) {
-    if (Math.random() < 0.2) {
-      // Random but safe bounce away
-      const angle = Math.atan2(dy, dx) + (Math.random() * Math.PI / 2 - Math.PI / 4); // ±45° off direct away
-      const speed = Math.sqrt(horse.vx * horse.vx + horse.vy * horse.vy) * random(0.8, 1.2);
-      horse.vx = speed * Math.cos(angle);
-      horse.vy = speed * Math.sin(angle);
-    } else {
-      // Normal bounce
-      horse.vx *= -1 * random(0.8, 1.2);
-      horse.vy *= -1 * random(0.8, 1.2);
+    // Check for finish zone
+    if (
+      horse.x > finishZone.x && horse.x < finishZone.x + finishZone.w &&
+      horse.y > finishZone.y && horse.y < finishZone.y + finishZone.h
+    ) {
+      horse.finished = true;
+      finishedHorses.push(horse);
+      updateLeaderboard();
     }
   }
 }
 
-
-        if (
-          horse.x > finishZone.x && horse.x < finishZone.x + finishZone.w &&
-          horse.y > finishZone.y && horse.y < finishZone.y + finishZone.h
-        ) {
-          horse.finished = true;
-          finishedHorses.push(horse);
-          updateLeaderboard();
-        }
-      }
-    }
 
     function updateLeaderboard() {
       const leaderList = document.getElementById('leaderList');
