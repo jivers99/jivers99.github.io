@@ -66,24 +66,46 @@
     }
 
     function resetRace() {
-      horses.length = 0;
-      finishedHorses.length = 0;
-      walls.length = 0;
-      zones.length = 0;
+  horses.length = 0;
+  finishedHorses.length = 0;
+  walls.length = 0;
+  zones.length = 0;
 
-      for (let i = 0; i < horseNames.length; i++) {
-        horses.push({
-          x: random(50, 200),
-          y: random(50, height - 50),
-          vx: random(2, 4),
-          vy: random(-2, 2),
-          name: horseNames[i],
-          image: images[horseNames[i]],
-          finished: false,
-          speedMultiplier: 1,
-          effectTimer: 0
-        });
-      }
+  for (let i = 0; i < horseNames.length; i++) {
+    horses.push({
+      x: random(50, 150),
+      y: random(100, height - 100),
+      vx: random(2, 4),
+      vy: random(-2, 2),
+      name: horseNames[i],
+      image: images[horseNames[i]],
+      finished: false,
+      speedMultiplier: 1,
+      effectTimer: 0
+    });
+  }
+
+  // 🛤️ Handcrafted maze walls
+  walls.push({ x: 300, y: 0, w: 20, h: height - 200 });
+  walls.push({ x: 600, y: 200, w: 20, h: height - 200 });
+  walls.push({ x: 300, y: height - 200, w: 320, h: 20 });
+  walls.push({ x: 0, y: 400, w: 300, h: 20 });
+  walls.push({ x: 600, y: 400, w: width - 600, h: 20 });
+
+  // 🟠 Zones still random for now
+  const zoneCount = 8;
+  for (let i = 0; i < zoneCount; i++) {
+    zones.push({
+      x: random(100, width - 200),
+      y: random(100, height - 200),
+      radius: 20,
+      type: rng() < 0.5 ? 'boost' : 'slow'
+    });
+  }
+
+  updateLeaderboard();
+}
+
 
       // Build random walls
       const wallCount = 10;
