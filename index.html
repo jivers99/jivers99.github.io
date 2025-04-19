@@ -31,6 +31,8 @@
     const ctx = canvas.getContext('2d');
     let width = window.innerWidth;
     let height = window.innerHeight;
+    console.log(width);
+    console.log(height);
     canvas.width = width;
     canvas.height = height;
 
@@ -88,11 +90,14 @@
   // 🛤️ Handcrafted maze walls
   walls.push({ x: 300, y: 200, w: 20, h: height - 400 });
   walls.push({ x: 300, y: 200, w: 300, h: 20 });
-  walls.push({ x: 300, y: height - 200, w: 320, h: 20 });
+  walls.push({ x: 300, y: height - 200, w: 300, h: 20 });
+
+  walls.push({ x: 900, y: 0, w: 20, h: 450 });
+  walls.push({ x: 900, y: height - 450, w: 20, h: 450 });
   
 
   // 🟠 Zones still random for now
-  const zoneCount = 8;
+  const zoneCount = 30;
   for (let i = 0; i < zoneCount; i++) {
     zones.push({
       x: random(100, width - 200),
