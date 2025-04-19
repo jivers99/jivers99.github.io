@@ -71,24 +71,46 @@
   walls.length = 0;
   zones.length = 0;
 
-  for (let i = 0; i < horseNames.length; i++) {
-    horses.push({
-      x: random(50, 150),
-      y: random(100, height - 100),
-      vx: random(2, 4),
-      vy: random(-2, 2),
-      name: horseNames[i],
-      image: images[horseNames[i]],
-      finished: false,
-      speedMultiplier: 1,
-      effectTimer: 0
-    });
-  }
+  const spawnArea = { xMin: 50, xMax: 150, yMin: 100, yMax: height - 100 };
+const startSpeed = 3;
+
+for (let i = 0; i < horseNames.length; i++) {
+  let x, y, valid;
+  do {
+    valid = true;
+    x = random(spawnArea.xMin, spawnArea.xMax);
+    y = random(spawnArea.yMin, spawnArea.yMax);
+    for (const other of horses) {
+      const dx = x - other.x;
+      const dy = y - other.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 45) { // a little more than 40 to be safe
+        valid = false;
+        break;
+      }
+    }
+  } while (!valid);
+
+  const angle = random(0, Math.PI * 2);
+
+  horses.push({
+    x,
+    y,
+    vx: startSpeed * Math.cos(angle),
+    vy: startSpeed * Math.sin(angle),
+    name: horseNames[i],
+    image: images[horseNames[i]],
+    finished: false,
+    speedMultiplier: 1,
+    effectTimer: 0
+  });
+}
+
 
   // 🛤️ Handcrafted maze walls
   walls.push({ x: 300, y: 200, w: 20, h: height - 400 });
   walls.push({ x: 300, y: 200, w: 300, h: 20 });
-  walls.push({ x: 300, y: height - 200, w: 300, h: 20 });
+  walls.push({ x: 300, y: height - 220, w: 300, h: 20 });
 
   walls.push({ x: 900, y: 0, w: 20, h: 365 });
   walls.push({ x: 900, y: height - 350, w: 20, h: 365 });
@@ -98,18 +120,8 @@
       
   walls.push({ x: width - 300, y: 200, w: 20, h: height - 400 });
   walls.push({ x: width - 600, y: 200, w: 300, h: 20 });
-  walls.push({ x: width - 600, y: height - 200, w: 300, h: 20 });
+  walls.push({ x: width - 600, y: height - 220, w: 300, h: 20 });
 
-  // 🟠 Zones still random for now
-  const zoneCount = 15;
-  for (let i = 0; i < zoneCount; i++) {
-    zones.push({
-      x: random(100, width - 200),
-      y: random(100, height - 200),
-      radius: 20,
-      type: rng() < 0.5 ? 'boost' : 'slow'
-    });
-  }
 
   updateLeaderboard();
 }
@@ -122,15 +134,6 @@
       }
     }
 
-    function drawZones() {
-      for (const zone of zones) {
-        ctx.beginPath();
-        ctx.arc(zone.x, zone.y, zone.radius, 0, Math.PI * 2);
-        ctx.fillStyle = zone.type === 'boost' ? '#00FF00' : '#FF0000';
-        ctx.fill();
-        ctx.closePath();
-      }
-    }
 
     function drawFinishZone() {
       ctx.fillStyle = '#00FF00';
