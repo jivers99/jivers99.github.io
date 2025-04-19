@@ -113,14 +113,14 @@ for (let i = 0; i < horseNames.length; i++) {
   walls.push({ x: 300, y: height - 220, w: 300, h: 20 });
 
   walls.push({ x: 900, y: 0, w: 20, h: 365 });
-  walls.push({ x: 900, y: height - 350, w: 20, h: 365 });
+  walls.push({ x: 900, y: height - 365, w: 20, h: 365 });
 
   walls.push({ x: 620, y: 365, w: 580, h: 20 });
-  walls.push({ x: 620, y: height - 365, w: 580, h: 20 });
+  walls.push({ x: 620, y: height - 385, w: 580, h: 20 });
       
-  walls.push({ x: width - 300, y: 200, w: 20, h: height - 400 });
-  walls.push({ x: width - 600, y: 200, w: 300, h: 20 });
-  walls.push({ x: width - 600, y: height - 220, w: 300, h: 20 });
+  walls.push({ x: width - 400, y: 200, w: 20, h: height - 400 });
+  walls.push({ x: width - 700, y: 200, w: 300, h: 20 });
+  walls.push({ x: width - 700, y: height - 220, w: 300, h: 20 });
 
 
   updateLeaderboard();
@@ -149,52 +149,61 @@ for (let i = 0; i < horseNames.length; i++) {
     }
 
     function updateHorses() {
-      for (const horse of horses) {
-        if (horse.finished) continue;
+  const desiredSpeed = 4; // <-- set your desired constant speed
 
-        if (horse.effectTimer > 0) {
-          horse.effectTimer--;
-          if (horse.effectTimer === 0) {
-            horse.speedMultiplier = 1;
+  for (const horse of horses) {
+    if (horse.finished) continue;
+
+    horse.x += horse.vx;
+    horse.y += horse.vy;
+
+    if (horse.x < 20 || horse.x > width - 20) {
+      horse.vx *= -1;
+    }
+    if (horse.y < 20 || horse.y > height - 20) {
+      horse.vy *= -1;
+    }
+
+    for (const wall of walls) {
+      if (
+        horse.x + 20 > wall.x &&
+        horse.x - 20 < wall.x + wall.w &&
+        horse.y + 20 > wall.y &&
+        horse.y - 20 < wall.y + wall.h
+      ) {
+        const overlapX = Math.min(horse.x + 20 - wall.x, wall.x + wall.w - (horse.x - 20));
+        const overlapY = Math.min(horse.y + 20 - wall.y, wall.y + wall.h - (horse.y - 20));
+
+        if (overlapX < overlapY) {
+          // horizontal bounce
+          if (Math.random() < 0.2) {
+            // 20% random safe bounce
+            horse.vx = (horse.x < wall.x ? -1 : 1) * desiredSpeed * (Math.random() < 0.5 ? 1 : -1);
+            horse.vy = (Math.random() - 0.5) * 2 * desiredSpeed;
+          } else {
+            horse.vx *= -1;
+          }
+        } else {
+          // vertical bounce
+          if (Math.random() < 0.2) {
+            horse.vy = (horse.y < wall.y ? -1 : 1) * desiredSpeed * (Math.random() < 0.5 ? 1 : -1);
+            horse.vx = (Math.random() - 0.5) * 2 * desiredSpeed;
+          } else {
+            horse.vy *= -1;
           }
         }
-
-        horse.x += horse.vx * horse.speedMultiplier;
-        horse.y += horse.vy * horse.speedMultiplier;
-
-        if (horse.x < 20 || horse.x > width - 20) horse.vx *= -1 * random(0.8, 1.2);
-        if (horse.y < 20 || horse.y > height - 20) horse.vy *= -1 * random(0.8, 1.2);
-
-        for (const wall of walls) {
-  if (
-    horse.x + 20 > wall.x &&
-    horse.x - 20 < wall.x + wall.w &&
-    horse.y + 20 > wall.y &&
-    horse.y - 20 < wall.y + wall.h
-  ) {
-    const overlapX = Math.min(horse.x + 20 - wall.x, wall.x + wall.w - (horse.x - 20));
-    const overlapY = Math.min(horse.y + 20 - wall.y, wall.y + wall.h - (horse.y - 20));
-
-    if (overlapX < overlapY) {
-      // horizontal bounce
-      if (Math.random() < 0.2) {
-        // random safe horizontal bounce
-        horse.vx = Math.abs(horse.vx) * (horse.x < wall.x ? -1 : 1) * random(0.8, 1.2);
-        horse.vy = random(-3, 3);
-      } else {
-        horse.vx *= -1 * random(0.8, 1.2);
       }
-    } else {
-      // vertical bounce
-      if (Math.random() < 0.2) {
-        horse.vy = Math.abs(horse.vy) * (horse.y < wall.y ? -1 : 1) * random(0.8, 1.2);
-        horse.vx = random(-3, 3);
-      } else {
-        horse.vy *= -1 * random(0.8, 1.2);
-      }
+    }
+
+    // After all movement, normalize speed to keep it clean
+    const speed = Math.sqrt(horse.vx * horse.vx + horse.vy * horse.vy);
+    if (speed !== 0) {
+      horse.vx = (horse.vx / speed) * desiredSpeed;
+      horse.vy = (horse.vy / speed) * desiredSpeed;
     }
   }
 }
+
 
 
         for (const zone of zones) {
