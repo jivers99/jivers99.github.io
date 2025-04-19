@@ -5,15 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seeded Bouncing Horse Race</title>
   <style>
-    body { margin: 0; overflow: hidden; background: #111; }
-    canvas { display: block; margin: 0 auto; background: #222; }
-    #controls { position: absolute; top: 10px; left: 10px; color: white; font-family: sans-serif; }
-    button { margin-right: 10px; padding: 5px 10px; }
-    #leaderboard { position: absolute; top: 10px; right: 10px; color: white; font-family: sans-serif; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; }
-    #leaderboard h2 { margin: 0 0 5px 0; font-size: 18px; }
-    #leaderboard ol { padding-left: 20px; margin: 0; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: auto; /* allow scrolling */
+      width: 100%;
+      height: 100%;
+      background: #111;
+    }
+    canvas {
+      display: block;
+      background: #222;
+      max-width: none;
+      max-height: none;
+    }
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-family: sans-serif;
+    }
+    button {
+      margin-right: 10px;
+      padding: 5px 10px;
+    }
+    #leaderboard {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: white;
+      font-family: sans-serif;
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
+      border-radius: 8px;
+    }
+    #leaderboard h2 {
+      margin: 0 0 5px 0;
+      font-size: 18px;
+    }
+    #leaderboard ol {
+      padding-left: 20px;
+      margin: 0;
+    }
   </style>
 </head>
+
 <body>
   <div id="controls">
     <button id="newRace">New Race</button>
@@ -306,8 +343,8 @@ for (let i = 0; i < horseNames.length; i++) {
     });
 
     window.addEventListener('resize', () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      width = 1920;
+      height = 1080;
       canvas.width = width;
       canvas.height = height;
     });
