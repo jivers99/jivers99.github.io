@@ -1,4 +1,4 @@
-import { draftPokemon } from './draftLogic.js';
+import { draftPokemon, getTier } from './draftLogic.js';
 
 export function renderDraftOptions(options) {
 
@@ -13,6 +13,7 @@ export function renderDraftOptions(options) {
     card.innerHTML = `
       <h3>${pokemon.name}</h3>
       <p>BST: ${pokemon.bst}</p>
+      <p>Tier: ${getTier(pokemon.bst)}</p>
     `;
 
     card.onclick = () => {
