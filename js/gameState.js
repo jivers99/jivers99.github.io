@@ -124,11 +124,20 @@ function showResults(playerScore, optimal) {
                 </tr>
     `;
 
-    const stats = ["hp","atk","def","spa","spd","spe"];
+    const statOrder = ["hp","atk","def","spa","spd","spe"];
+
+    // Build reverse lookup: stat → pokemon
+    const optimalMap = {};
 
     for (let i = 0; i < gameState.drafted.length; i++) {
         const pokemon = gameState.drafted[i];
         const stat = optimal.bestAssignment[i];
+        optimalMap[stat] = pokemon;
+    }
+
+    statOrder.forEach(stat => {
+
+        const pokemon = optimalMap[stat];
 
         html += `
             <tr>
@@ -137,9 +146,9 @@ function showResults(playerScore, optimal) {
                 <td>${pokemon.stats[stat]}</td>
             </tr>
         `;
-    }
+    });
 
-    html += `</table></div></div>`;
+    html += `</table></div>`;
 
     html += `<br><button id="restart-btn">New Game</button>`;
 
