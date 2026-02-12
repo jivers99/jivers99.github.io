@@ -107,11 +107,16 @@ function renderStatAssignments() {
   });
 
   document.querySelectorAll(".drafted-card").forEach(card => {
-    card.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", card.dataset.name);
-      e.dataTransfer.setData("card-type", "drafted");
-    });
+    if (!gameState.gameFinished) {
+        card.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", card.dataset.name);
+        e.dataTransfer.setData("card-type", "drafted");
+        });
+    } else {
+        card.draggable = false;
+    }
   });
+
 }
 
 function handleDraftDrop(pokemonName, stat, slot) {

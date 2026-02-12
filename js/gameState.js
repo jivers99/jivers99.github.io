@@ -14,6 +14,8 @@ export function initializeGame(pokemonData) {
     gameState.drafted = [];
     gameState.remainingPool = [...filtered];
     gameState.currentOptions = [];
+    gameState.gameFinished = false;
+    gameState.originalData = pokemonData;
     gameState.statAssignments = {
         hp: null,
         atk: null,
@@ -36,6 +38,7 @@ export function initializeGame(pokemonData) {
 
         // Lock UI
         finishBtn.disabled = true;
+        gameState.gameFinished = true;
 
         const playerScore = calculatePlayerScore();
         const optimal = calculateOptimal(gameState.drafted);
@@ -78,17 +81,23 @@ function showResults(playerScore, optimal) {
         <p>Your Score: ${playerScore}</p>
         <p>Optimal Score: ${optimal.bestScore}</p>
         <p>Efficiency: ${efficiency}%</p>
-        <h3>Your Assignments</h3>
-        <table border="1" style="margin:auto;">
-        <tr>
-            <th>Stat</th>
-            <th>Pokemon</th>
-            <th>Base Stat</th>
-        </tr>
+
+        <div style="display:flex; justify-content:center; gap:50px; margin-top:20px;">
+    `;
+
+    // PLAYER TABLE
+    html += `
+        <div>
+            <h3>Your Assignment</h3>
+            <table border="1">
+                <tr>
+                    <th>Stat</th>
+                    <th>Pokemon</th>
+                    <th>Base</th>
+                </tr>
     `;
 
     for (const stat in gameState.statAssignments) {
-
         const name = gameState.statAssignments[stat];
         const pokemon = gameState.drafted.find(p => p.name === name);
 
@@ -101,7 +110,58 @@ function showResults(playerScore, optimal) {
         `;
     }
 
-    html += `</table>`;
+    html += `</table></div>`;
+
+    // OPTIMAL TABLE
+    html += `
+        <div>
+            <h3>Optimal Assignment</h3>
+            <table border="1">
+                <tr>
+                    <th>Stat</th>
+                    <th>Pokemon</th>
+                    <th>Base</th>
+                </tr>
+    `;
+
+    const stats = ["hp","atk","def","spa","spd","spe"];
+
+    for (let i = 0; i < gameState.drafted.length; i++) {
+        const pokemon = gameState.drafted[i];
+        const stat = optimal.bestAssignment[i];
+
+        html += `
+            <tr>
+                <td>${stat.toUpperCase()}</td>
+                <td>${pokemon.name}</td>
+                <td>${pokemon.stats[stat]}</td>
+            </tr>
+        `;
+    }
+
+    html += `</table></div></div>`;
+
+    html += `<br><button id="restart-btn">New Game</button>`;
 
     resultsDiv.innerHTML = html;
+
+    document.getElementById("restart-btn").addEventListener("click", restartGame);
+}
+
+function restartGame() {
+
+    // Reset UI
+    document.getElementById("results-screen").style.display = "none";
+    document.getElementById("results-screen").innerHTML = "";
+    document.getElementById("finish-draft-btn").style.display = "none";
+    document.getElementById("finish-draft-btn").disabled = false;
+
+    document.getElementById("draft-options").innerHTML = "";
+    document.querySelectorAll(".stat-slot").forEach(slot => {
+        slot.textContent = slot.dataset.stat.toUpperCase();
+        slot.classList.remove("occupied");
+    });
+
+    // Restart game state
+    initializeGame(gameState.originalData);
 }
