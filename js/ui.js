@@ -49,35 +49,6 @@ export function renderDraftedPokemon() {
 
     container.appendChild(card);
   });
-
-  initializeDropZones();
-}
-
-function initializeDropZones() {
-
-  const slots = document.querySelectorAll('.stat-slot');
-
-  slots.forEach(slot => {
-
-    slot.addEventListener('dragover', (e) => {
-      e.preventDefault();
-    });
-
-    slot.addEventListener('drop', (e) => {
-    e.preventDefault();
-
-    const pokemonName = e.dataTransfer.getData('text/plain');
-    const cardType = e.dataTransfer.getData("card-type");
-    const stat = slot.dataset.stat;
-
-    if (cardType === "draft-option") {
-        handleDraftDrop(pokemonName, stat, slot);
-    } else {
-        handleSwap(pokemonName, stat);
-    }
-    });
-
-  });
 }
 
 function assignPokemonToStat(pokemonName, stat) {
@@ -199,4 +170,31 @@ function handleSwap(pokemonName, targetStat) {
   gameState.statAssignments[targetStat] = pokemonName;
 
   renderStatAssignments();
+}
+
+export function initializeDropZones() {
+
+    const slots = document.querySelectorAll('.stat-slot');
+
+    slots.forEach(slot => {
+
+        slot.addEventListener('dragover', (e) => {
+            e.preventDefault();   // THIS IS REQUIRED
+        });
+
+        slot.addEventListener('drop', (e) => {
+            e.preventDefault();
+
+            const pokemonName = e.dataTransfer.getData('text/plain');
+            const cardType = e.dataTransfer.getData('card-type');
+            const stat = slot.dataset.stat;
+
+            if (cardType === "draft-option") {
+                handleDraftDrop(pokemonName, stat);
+            } else if (cardType === "drafted") {
+                handleSwap(pokemonName, stat);
+            }
+        });
+
+    });
 }

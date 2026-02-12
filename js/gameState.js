@@ -39,5 +39,9 @@ export function initializeGame(pokemonData) {
         finishBtn.disabled = true;
     });
 
+    import('./ui.js').then(module => {
+        module.initializeDropZones();
+    });
+
     startDraft();
 }
