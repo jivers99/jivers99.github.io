@@ -116,12 +116,13 @@ export function draftPokemon(pokemon) {
 
   gameState.drafted.push(pokemon);
 
+  renderDraftedPokemon();
+
   gameState.round++;
 
   if (gameState.round <= 6) {
     startDraft();
   } else {
-    console.log("Draft finished!");
-    console.log(gameState.drafted);
+    document.getElementById("finish-draft-btn").style.display = "block";
   }
 }

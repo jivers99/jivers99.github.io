@@ -10,14 +10,28 @@
     <h1>PokéDraft</h1>
 
     <div id="game-container">
+
         <div id="round-info"></div>
 
         <div id="draft-options"></div>
 
+        <h2>Your Team</h2>
         <div id="drafted-pokemon"></div>
 
-        <button id="next-round-btn" style="display:none;">Next Round</button>
+        <h2>Assign Stats</h2>
+        <div id="stat-slots">
+            <div class="stat-slot" data-stat="hp">HP</div>
+            <div class="stat-slot" data-stat="atk">ATK</div>
+            <div class="stat-slot" data-stat="def">DEF</div>
+            <div class="stat-slot" data-stat="spa">SPA</div>
+            <div class="stat-slot" data-stat="spd">SPD</div>
+            <div class="stat-slot" data-stat="spe">SPE</div>
+        </div>
+
+        <button id="finish-draft-btn" style="display:none;">Finish Draft</button>
+
     </div>
+
 
     <script type="module" src="js/dataLoader.js"></script>
 </body>

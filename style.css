@@ -36,3 +36,42 @@ body {
     background: #8bc34a;
     color: white;
 }
+
+#drafted-pokemon {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.drafted-card {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: grab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#stat-slots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-slot {
+    width: 100px;
+    height: 80px;
+    border: 2px dashed #aaa;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background: #f9f9f9;
+}
+
+.stat-slot.occupied {
+    border-style: solid;
+    background: #e3f2fd;
+}
