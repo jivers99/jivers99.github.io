@@ -1,19 +1,107 @@
 import { gameState } from './gameState.js';
 import { renderDraftOptions } from './ui.js';
 
-export function startDraft() {
-    renderDraftOptions(getRandomOptions());
+const roundChances = {
+  1: { A: 59, B: 40 },
+  2: { A: 18, B: 20, C: 30, D: 18, F: 13 },
+  3: { A: 18, B: 20, C: 30, D: 18, F: 13 },
+  4: { A: 12, B: 15, C: 30, D: 22, F: 20 },
+  5: { A: 8,  B: 10, C: 27, D: 24, F: 30 },
+  6: { A: 8,  B: 10, C: 27, D: 24, F: 30 }
+};
+
+const tierOrder = ["S", "A", "B", "C", "D", "F"];
+
+function getTier(bst) {
+  if (bst >= 580) return "S";
+  if (bst >= 525) return "A";
+  if (bst >= 500) return "B";
+  if (bst >= 480) return "C";
+  if (bst >= 448) return "D";
+  return "F";
 }
 
-function getRandomOptions() {
+function buildTierBuckets(pool) {
+  const buckets = {
+    S: [],
+    A: [],
+    B: [],
+    C: [],
+    D: [],
+    F: []
+  };
 
-    const options = [];
+  pool.forEach(p => {
+    const tier = getTier(p.bst);
+    buckets[tier].push(p);
+  });
 
-    while (options.length < 3 && gameState.remainingPool.length > 0) {
-        const index = Math.floor(Math.random() * gameState.remainingPool.length);
-        const selected = gameState.remainingPool.splice(index, 1)[0];
-        options.push(selected);
+  return buckets;
+}
+
+function weightedRoll(round) {
+  // First check S roll
+  if (Math.random() < 0.01) return "S";
+
+  const chances = roundChances[round];
+  const roll = Math.random() * 100;
+
+  let cumulative = 0;
+  for (const tier of Object.keys(chances)) {
+    cumulative += chances[tier];
+    if (roll <= cumulative) {
+      return tier;
+    }
+  }
+
+  return "F"; // safety fallback
+}
+
+function fallbackTier(tier, buckets) {
+  let index = tierOrder.indexOf(tier);
+
+  while (index < tierOrder.length) {
+    const candidateTier = tierOrder[index];
+    if (buckets[candidateTier].length > 0) {
+      return candidateTier;
+    }
+    index++; // go one tier lower
+  }
+
+  return null;
+}
+
+function getCardFromTier(tier, buckets) {
+  const bucket = buckets[tier];
+  const index = Math.floor(Math.random() * bucket.length);
+  return bucket.splice(index, 1)[0];
+}
+
+function generateThreeOptions() {
+  const buckets = buildTierBuckets(gameState.remainingPool);
+  const options = [];
+
+  for (let i = 0; i < 3; i++) {
+    const rolledTier = weightedRoll(gameState.round);
+    const actualTier = fallbackTier(rolledTier, buckets);
+
+    if (!actualTier) break; // no Pokémon left
+
+    const pokemon = getCardFromTier(actualTier, buckets);
+
+    // Also remove from remainingPool
+    const poolIndex = gameState.remainingPool.findIndex(p => p.name === pokemon.name);
+    if (poolIndex !== -1) {
+      gameState.remainingPool.splice(poolIndex, 1);
     }
 
-    return options;
+    options.push(pokemon);
+  }
+
+  return options;
+}
+
+export function startDraft() {
+  const options = generateThreeOptions();
+  renderDraftOptions(options);
 }
