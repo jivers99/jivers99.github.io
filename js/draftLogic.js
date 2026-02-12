@@ -96,13 +96,15 @@ function generateThreeOptions() {
 
 export function startDraft() {
 
-  if (gameState.round > 6) {
-    console.log("Draft complete");
-    return;
-  }
+    if (gameState.round > 6) {
+        console.log("Draft complete");
+        return;
+    }
 
-  const options = generateThreeOptions();
-  renderDraftOptions(options);
+    const options = generateThreeOptions();
+    gameState.currentOptions = options;
+    renderDraftOptions(options);
+
 }
 
 export function draftPokemon(pokemon) {

@@ -12,6 +12,7 @@ export function initializeGame(pokemonData) {
     gameState.round = 1;
     gameState.drafted = [];
     gameState.remainingPool = [...filtered];
+    gameState.currentOptions = [];
     gameState.statAssignments = {
         hp: null,
         atk: null,

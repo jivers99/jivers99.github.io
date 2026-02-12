@@ -121,7 +121,7 @@ function handleDraftDrop(pokemonName, stat, slot) {
     return;
   }
 
-  const pokemon = gameState.remainingPool.find(p => p.name === pokemonName);
+  const pokemon = gameState.currentOptions.find(p => p.name === pokemonName);
 
   if (!pokemon) return;
 
@@ -144,6 +144,9 @@ function handleDraftDrop(pokemonName, stat, slot) {
   } else {
     document.getElementById("finish-draft-btn").style.display = "block";
   }
+
+  gameState.currentOptions = [];
+  document.getElementById("draft-options").innerHTML = "";
 
   renderStatAssignments();
 }
