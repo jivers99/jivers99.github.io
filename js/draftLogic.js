@@ -102,6 +102,26 @@ function generateThreeOptions() {
 }
 
 export function startDraft() {
+
+  if (gameState.round > 6) {
+    console.log("Draft complete");
+    return;
+  }
+
   const options = generateThreeOptions();
   renderDraftOptions(options);
+}
+
+export function draftPokemon(pokemon) {
+
+  gameState.drafted.push(pokemon);
+
+  gameState.round++;
+
+  if (gameState.round <= 6) {
+    startDraft();
+  } else {
+    console.log("Draft finished!");
+    console.log(gameState.drafted);
+  }
 }

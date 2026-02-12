@@ -1,6 +1,6 @@
 import { initializeGame } from './gameState.js';
 
-fetch('../data/pokemon.json')
+fetch('./data/pokemon.json')
   .then(res => res.json())
   .then(data => {
       initializeGame(data);
