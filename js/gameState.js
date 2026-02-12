@@ -126,31 +126,20 @@ function showResults(playerScore) {
     const currentIndex = gameState.currentOptimalIndex + 1;
 
     html += `
-        <div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
             <h3>
                 Optimal Assignment 
                 ${totalOptimal > 1 ? `(${currentIndex} of ${totalOptimal})` : ""}
             </h3>
-    `;
 
-    if (totalOptimal > 1) {
-        html += `
-            <div style="margin-bottom:10px;">
-                <button id="prev-optimal">←</button>
-                <button id="next-optimal">→</button>
-            </div>
-        `;
-    }
-
-    // 🔥 THIS WAS MISSING
-    html += `
-            <table border="1">
+            <table border="1" style="margin-bottom:10px;">
                 <tr>
                     <th>Stat</th>
                     <th>Pokemon</th>
                     <th>Base</th>
                 </tr>
     `;
+
 
     // Build reverse lookup: stat → pokemon
     const statOrder = ["hp","atk","def","spa","spd","spe"];
@@ -175,10 +164,18 @@ function showResults(playerScore) {
         `;
     });
 
-    html += `
-            </table>
-        </div>
-    `;
+    html += `</table>`;
+
+    if (totalOptimal > 1) {
+        html += `
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button id="prev-optimal">←</button>
+                <button id="next-optimal">→</button>
+            </div>
+        `;
+    }
+
+    html += `</div>`;
 
 
 
