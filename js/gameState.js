@@ -142,10 +142,18 @@ function showResults(playerScore) {
         `;
     }
 
-
-    const statOrder = ["hp","atk","def","spa","spd","spe"];
+    // 🔥 THIS WAS MISSING
+    html += `
+            <table border="1">
+                <tr>
+                    <th>Stat</th>
+                    <th>Pokemon</th>
+                    <th>Base</th>
+                </tr>
+    `;
 
     // Build reverse lookup: stat → pokemon
+    const statOrder = ["hp","atk","def","spa","spd","spe"];
     const optimalMap = {};
 
     for (let i = 0; i < gameState.drafted.length; i++) {
@@ -167,7 +175,12 @@ function showResults(playerScore) {
         `;
     });
 
-    html += `</table></div>`;
+    html += `
+            </table>
+        </div>
+    `;
+
+
 
     html += `<br><button id="restart-btn">New Game</button>`;
 
