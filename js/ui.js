@@ -11,15 +11,20 @@ export function renderDraftOptions(options) {
 
     const card = document.createElement('div');
     card.className = 'pokemon-card';
+    card.draggable = true;
+    card.dataset.name = pokemon.name;
+    card.dataset.type = "draft-option";
 
-    card.innerHTML = `<h3>${pokemon.name}</h3>
-                      <p>BST: ${pokemon.bst} (${getTier(pokemon.bst)})</p>`;
+    card.innerHTML = `
+    <h3>${pokemon.name}</h3>
+    <p>Tier: ${getTier(pokemon.bst)}</p>
+    `;
 
-    card.onclick = () => {
-      import('./draftLogic.js').then(module => {
-        module.draftPokemon(pokemon);
-      });
-    };
+    card.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", pokemon.name);
+    e.dataTransfer.setData("card-type", "draft-option");
+    });
+
 
     container.appendChild(card);
   });
@@ -59,13 +64,19 @@ function initializeDropZones() {
     });
 
     slot.addEventListener('drop', (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      const pokemonName = e.dataTransfer.getData('text/plain');
-      const stat = slot.dataset.stat;
+    const pokemonName = e.dataTransfer.getData('text/plain');
+    const cardType = e.dataTransfer.getData("card-type");
+    const stat = slot.dataset.stat;
 
-      assignPokemonToStat(pokemonName, stat);
+    if (cardType === "draft-option") {
+        handleDraftDrop(pokemonName, stat, slot);
+    } else {
+        handleSwap(pokemonName, stat);
+    }
     });
+
   });
 }
 
@@ -108,15 +119,84 @@ function renderStatAssignments() {
   const slots = document.querySelectorAll('.stat-slot');
 
   slots.forEach(slot => {
-    const stat = slot.dataset.stat;
-    const assigned = gameState.statAssignments[stat];
-
-    slot.textContent = assigned ? assigned.toUpperCase() : stat.toUpperCase();
+        const stat = slot.dataset.stat;
+        const assigned = gameState.statAssignments[stat];
 
     if (assigned) {
+      slot.innerHTML = `
+        <div class="drafted-card" draggable="true" data-name="${assigned}">
+        ${assigned}
+        </div>
+      `;
       slot.classList.add('occupied');
     } else {
+      slot.textContent = stat.toUpperCase();
       slot.classList.remove('occupied');
     }
   });
+
+  document.querySelectorAll(".drafted-card").forEach(card => {
+    card.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", card.dataset.name);
+      e.dataTransfer.setData("card-type", "drafted");
+    });
+  });
+}
+
+function handleDraftDrop(pokemonName, stat, slot) {
+
+  // Only allow drafting into empty slot
+  if (gameState.statAssignments[stat] !== null) {
+    return;
+  }
+
+  const pokemon = gameState.remainingPool.find(p => p.name === pokemonName);
+
+  if (!pokemon) return;
+
+  // Assign stat
+  gameState.statAssignments[stat] = pokemonName;
+
+  // Add to drafted
+  gameState.drafted.push(pokemon);
+
+  // Remove all 3 current draft options from pool
+  document.getElementById("draft-options").innerHTML = "";
+
+  // Advance round
+  gameState.round++;
+
+  if (gameState.round <= 6) {
+    import('./draftLogic.js').then(module => {
+      module.startDraft();
+    });
+  } else {
+    document.getElementById("finish-draft-btn").style.display = "block";
+  }
+
+  renderStatAssignments();
+}
+
+function handleSwap(pokemonName, targetStat) {
+
+  let currentStat = null;
+
+  for (const s in gameState.statAssignments) {
+    if (gameState.statAssignments[s] === pokemonName) {
+      currentStat = s;
+      break;
+    }
+  }
+
+  const occupyingPokemon = gameState.statAssignments[targetStat];
+
+  if (occupyingPokemon) {
+    gameState.statAssignments[currentStat] = occupyingPokemon;
+  } else {
+    gameState.statAssignments[currentStat] = null;
+  }
+
+  gameState.statAssignments[targetStat] = pokemonName;
+
+  renderStatAssignments();
 }
