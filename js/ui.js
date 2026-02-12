@@ -1,4 +1,6 @@
 import { gameState } from './gameState.js';
+import { getTier } from './tierUtils.js';
+
 
 export function renderDraftOptions(options) {
 
@@ -10,7 +12,8 @@ export function renderDraftOptions(options) {
     const card = document.createElement('div');
     card.className = 'pokemon-card';
 
-    card.innerHTML = `<h3>${pokemon.name}</h3>`;
+    card.innerHTML = `<h3>${pokemon.name}</h3>
+                      <p>BST: ${pokemon.bst} (${getTier(pokemon.bst)})</p>`;
 
     card.onclick = () => {
       import('./draftLogic.js').then(module => {

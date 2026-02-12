@@ -1,5 +1,7 @@
 import { gameState } from './gameState.js';
 import { renderDraftOptions } from './ui.js';
+import { getTier } from './tierUtils.js';
+
 
 const roundChances = {
   1: { A: 59, B: 40 },
@@ -11,15 +13,6 @@ const roundChances = {
 };
 
 const tierOrder = ["S", "A", "B", "C", "D", "F"];
-
-function getTier(bst) {
-  if (bst >= 580) return "S";
-  if (bst >= 525) return "A";
-  if (bst >= 500) return "B";
-  if (bst >= 480) return "C";
-  if (bst >= 448) return "D";
-  return "F";
-}
 
 function buildTierBuckets(pool) {
   const buckets = {
