@@ -1,11 +1,10 @@
 export function calculateOptimal(draftedPokemon) {
 
     const stats = ["hp", "atk", "def", "spa", "spd", "spe"];
-
     const permutations = generatePermutations(stats);
 
     let bestScore = 0;
-    let bestAssignment = null;
+    let optimalAssignments = [];
 
     permutations.forEach(permutation => {
 
@@ -17,15 +16,19 @@ export function calculateOptimal(draftedPokemon) {
 
         if (total > bestScore) {
             bestScore = total;
-            bestAssignment = permutation;
+            optimalAssignments = [permutation];
+        }
+        else if (total === bestScore) {
+            optimalAssignments.push(permutation);
         }
     });
 
     return {
         bestScore,
-        bestAssignment
+        optimalAssignments
     };
 }
+
 
 function generatePermutations(arr) {
     if (arr.length === 0) return [[]];

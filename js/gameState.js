@@ -15,6 +15,8 @@ export function initializeGame(pokemonData) {
     gameState.remainingPool = [...filtered];
     gameState.currentOptions = [];
     gameState.gameFinished = false;
+    gameState.currentOptimalIndex = 0;
+    gameState.optimalResults = null;
     gameState.originalData = pokemonData;
     gameState.statAssignments = {
         hp: null,
@@ -43,7 +45,11 @@ export function initializeGame(pokemonData) {
         const playerScore = calculatePlayerScore();
         const optimal = calculateOptimal(gameState.drafted);
 
-        showResults(playerScore, optimal);
+        gameState.optimalResults = optimal;
+        gameState.currentOptimalIndex = 0;
+
+        showResults(playerScore);
+
     });
 
     import('./ui.js').then(module => {
@@ -69,10 +75,13 @@ export function calculatePlayerScore() {
     return total;
 }
 
-function showResults(playerScore, optimal) {
+function showResults(playerScore) {
 
     const resultsDiv = document.getElementById("results-screen");
     resultsDiv.style.display = "block";
+
+    const optimal = gameState.optimalResults;
+    const optimalAssignment = optimal.optimalAssignments[gameState.currentOptimalIndex];
 
     const efficiency = ((playerScore / optimal.bestScore) * 100).toFixed(1);
 
@@ -113,16 +122,26 @@ function showResults(playerScore, optimal) {
     html += `</table></div>`;
 
     // OPTIMAL TABLE
+    const totalOptimal = optimal.optimalAssignments.length;
+    const currentIndex = gameState.currentOptimalIndex + 1;
+
     html += `
         <div>
-            <h3>Optimal Assignment</h3>
-            <table border="1">
-                <tr>
-                    <th>Stat</th>
-                    <th>Pokemon</th>
-                    <th>Base</th>
-                </tr>
+            <h3>
+                Optimal Assignment 
+                ${totalOptimal > 1 ? `(${currentIndex} of ${totalOptimal})` : ""}
+            </h3>
     `;
+
+    if (totalOptimal > 1) {
+        html += `
+            <div style="margin-bottom:10px;">
+                <button id="prev-optimal">←</button>
+                <button id="next-optimal">→</button>
+            </div>
+        `;
+    }
+
 
     const statOrder = ["hp","atk","def","spa","spd","spe"];
 
@@ -131,7 +150,7 @@ function showResults(playerScore, optimal) {
 
     for (let i = 0; i < gameState.drafted.length; i++) {
         const pokemon = gameState.drafted[i];
-        const stat = optimal.bestAssignment[i];
+        const stat = optimalAssignment[i];
         optimalMap[stat] = pokemon;
     }
 
@@ -153,6 +172,22 @@ function showResults(playerScore, optimal) {
     html += `<br><button id="restart-btn">New Game</button>`;
 
     resultsDiv.innerHTML = html;
+
+    if (optimal.optimalAssignments.length > 1) {
+        document.getElementById("prev-optimal").addEventListener("click", () => {
+            if (gameState.currentOptimalIndex > 0) {
+                gameState.currentOptimalIndex--;
+                showResults(playerScore);
+            }
+        });
+
+        document.getElementById("next-optimal").addEventListener("click", () => {
+            if (gameState.currentOptimalIndex < optimal.optimalAssignments.length - 1) {
+                gameState.currentOptimalIndex++;
+                showResults(playerScore);
+            }
+        });
+    }
 
     document.getElementById("restart-btn").addEventListener("click", restartGame);
 }
