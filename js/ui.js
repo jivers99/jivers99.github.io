@@ -12,7 +12,7 @@ export function renderDraftOptions(options) {
         card.className = 'pokemon-card';
         card.innerHTML = `
         <h3>${pokemon.name}</h3>
-        <p>BST: ${pokemon.bst}</p>
+        <p>BST: ${pokemon.bst}</p> 
         <p>Tier: ${getTier(pokemon.bst)}</p>
         `;
 
