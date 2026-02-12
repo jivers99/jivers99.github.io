@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+#draft-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.pokemon-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+}
+
+.stat-slot {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 12px;
+    background: #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.stat-slot.assigned {
+    background: #8bc34a;
+    color: white;
+}

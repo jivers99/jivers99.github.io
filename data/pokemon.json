@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Venusaur",
+    "generation": 1,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 525,
+    "types": ["Grass", "Poison"],
+    "stats": {
+      "hp": 80,
+      "atk": 82,
+      "def": 83,
+      "spa": 100,
+      "spd": 100,
+      "spe": 80
+    }
+  },
+  {
+    "name": "Mewtwo",
+    "generation": 1,
+    "fullyEvolved": true,
+    "legendary": true,
+    "bst": 680,
+    "types": ["Psychic"],
+    "stats": {
+      "hp": 106,
+      "atk": 110,
+      "def": 90,
+      "spa": 154,
+      "spd": 90,
+      "spe": 130
+    }
+  }
+]
