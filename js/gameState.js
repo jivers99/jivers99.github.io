@@ -3,67 +3,50 @@ import { calculateOptimal } from './optimizer.js';
 
 export let gameState = {};
 
-export function initializeGame(pokemonData) {
+export function initializeGame(pool) {
 
-    const filtered = pokemonData.filter(p =>
-        p.fullyEvolved &&
-        [1,2].includes(p.generation)
-    );
+  // pool is already filtered by config screen
+  gameState.round = 1;
+  gameState.drafted = [];
+  gameState.remainingPool = [...pool];
+  gameState.currentOptions = [];
+  gameState.gameFinished = false;
+  gameState.currentOptimalIndex = 0;
+  gameState.optimalResults = null;
 
-    gameState.round = 1;
-    gameState.drafted = [];
-    gameState.remainingPool = [...filtered];
-    gameState.currentOptions = [];
-    gameState.gameFinished = false;
+  gameState.statAssignments = {
+    hp: null, atk: null, def: null, spa: null, spd: null, spe: null
+  };
+
+  resetGameUI();
+
+  const finishBtn = document.getElementById("finish-draft-btn");
+
+  // IMPORTANT: avoid stacking handlers on restart
+  finishBtn.onclick = () => {
+    const unassigned = Object.values(gameState.statAssignments).some(v => v === null);
+    if (unassigned) {
+      alert("You must assign all 6 stats before finishing.");
+      return;
+    }
+
+    finishBtn.disabled = true;
+    gameState.gameFinished = true;
+
+    const playerScore = calculatePlayerScore();
+    const optimal = calculateOptimal(gameState.drafted);
+
+    gameState.optimalResults = optimal;
     gameState.currentOptimalIndex = 0;
-    gameState.optimalResults = null;
-    gameState.originalData = pokemonData;
-    gameState.config = {
-        generations: [],
-        showBST: false,
-        types: [],
-        fullyEvolvedOnly: true
-    };
-    gameState.statAssignments = {
-        hp: null,
-        atk: null,
-        def: null,
-        spa: null,
-        spd: null,
-        spe: null
-    };
 
-    const finishBtn = document.getElementById("finish-draft-btn");
+    showResults(playerScore);
+  };
 
-    finishBtn.addEventListener("click", () => {
+  import('./ui.js').then(module => module.initializeDropZones());
 
-        const unassigned = Object.values(gameState.statAssignments).some(v => v === null);
-
-        if (unassigned) {
-            alert("You must assign all 6 stats before finishing.");
-            return;
-        }
-
-        // Lock UI
-        finishBtn.disabled = true;
-        gameState.gameFinished = true;
-
-        const playerScore = calculatePlayerScore();
-        const optimal = calculateOptimal(gameState.drafted);
-
-        gameState.optimalResults = optimal;
-        gameState.currentOptimalIndex = 0;
-
-        showResults(playerScore);
-
-    });
-
-    import('./ui.js').then(module => {
-        module.initializeDropZones();
-    });
-
-    startDraft();
+  startDraft();
 }
+
 
 export function calculatePlayerScore() {
 
@@ -237,6 +220,10 @@ function restartGame() {
 }
 
 export function startGameWithConfig(pokemonData) {
+    if (!gameState.originalData) {
+        gameState.originalData = pokemonData;
+    }
+
 
   const selectedGens = [...document.querySelectorAll("#gen-checkboxes input:checked")]
     .map(cb => Number(cb.value));
@@ -280,24 +267,43 @@ export function startGameWithConfig(pokemonData) {
   initializeGame(filtered);
 }
 
-function restartWithSameSettings() {
+function applyConfigFilters(pokemonData, config) {
+  let filtered = pokemonData.filter(p => config.generations.includes(p.generation));
 
-  document.getElementById("results-screen").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
-
-  let filtered = gameState.originalData.filter(p =>
-    gameState.config.generations.includes(p.generation)
-  );
-
-  if (gameState.config.fullyEvolvedOnly) {
+  if (config.fullyEvolvedOnly) {
     filtered = filtered.filter(p => p.fullyEvolved);
   }
 
-  if (gameState.config.types.length > 0) {
-    filtered = filtered.filter(p =>
-      p.types.some(t => gameState.config.types.includes(t))
-    );
+  if (config.types.length > 0) {
+    filtered = filtered.filter(p => p.types.some(t => config.types.includes(t)));
   }
 
+  return filtered;
+}
+
+function restartWithSameSettings() {
+  resetGameUI();
+
+  document.getElementById("config-screen").style.display = "none";
+  document.getElementById("game-container").style.display = "block";
+
+  const filtered = applyConfigFilters(gameState.originalData, gameState.config);
   initializeGame(filtered);
+}
+
+function resetGameUI() {
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("results-screen").innerHTML = "";
+
+  document.getElementById("draft-options").innerHTML = "";
+  document.getElementById("drafted-pokemon").innerHTML = "";
+
+  const finishBtn = document.getElementById("finish-draft-btn");
+  finishBtn.style.display = "none";
+  finishBtn.disabled = false;
+
+  document.querySelectorAll(".stat-slot").forEach(slot => {
+    slot.classList.remove("occupied");
+    slot.textContent = slot.dataset.stat.toUpperCase();
+  });
 }

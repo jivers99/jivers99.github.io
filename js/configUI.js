@@ -45,6 +45,10 @@ export function buildConfigUI() {
   document.getElementById("toggle-types").addEventListener("click", () => {
     toggleCheckboxGroup("type-checkboxes", "toggle-types");
   });
+
+  wireToggleSync("gen-checkboxes", "toggle-gens");
+  wireToggleSync("type-checkboxes", "toggle-types");
+
 }
 
 function toggleCheckboxGroup(containerId, buttonId) {
@@ -58,4 +62,20 @@ function toggleCheckboxGroup(containerId, buttonId) {
   checkboxes.forEach(cb => cb.checked = !allChecked);
 
   button.textContent = allChecked ? "Select All" : "Deselect All";
+}
+
+function syncToggleButton(containerId, buttonId) {
+  const container = document.getElementById(containerId);
+  const checkboxes = container.querySelectorAll("input[type='checkbox']");
+  const button = document.getElementById(buttonId);
+
+  const allChecked = [...checkboxes].every(cb => cb.checked);
+  button.textContent = allChecked ? "Deselect All" : "Select All";
+}
+
+function wireToggleSync(containerId, buttonId) {
+  const container = document.getElementById(containerId);
+  const checkboxes = container.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(cb => cb.addEventListener("change", () => syncToggleButton(containerId, buttonId)));
+  syncToggleButton(containerId, buttonId);
 }
