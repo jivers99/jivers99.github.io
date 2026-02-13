@@ -185,7 +185,12 @@ function showResults(playerScore) {
 
 
 
-    html += `<br><button id="restart-btn">New Game</button>`;
+    html += `
+    <br>
+    <button id="restart-btn">New Game (Config)</button>
+    <button id="restart-same-btn">Restart With Same Settings</button>
+    `;
+
 
     resultsDiv.innerHTML = html;
 
@@ -206,6 +211,8 @@ function showResults(playerScore) {
     }
 
     document.getElementById("restart-btn").addEventListener("click", restartGame);
+    document.getElementById("restart-same-btn").addEventListener("click", restartWithSameSettings);
+
 }
 
 function restartGame() {
@@ -269,6 +276,28 @@ export function startGameWithConfig(pokemonData) {
 
   document.getElementById("config-screen").style.display = "none";
   document.getElementById("game-container").style.display = "block";
+
+  initializeGame(filtered);
+}
+
+function restartWithSameSettings() {
+
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("game-container").style.display = "block";
+
+  let filtered = gameState.originalData.filter(p =>
+    gameState.config.generations.includes(p.generation)
+  );
+
+  if (gameState.config.fullyEvolvedOnly) {
+    filtered = filtered.filter(p => p.fullyEvolved);
+  }
+
+  if (gameState.config.types.length > 0) {
+    filtered = filtered.filter(p =>
+      p.types.some(t => gameState.config.types.includes(t))
+    );
+  }
 
   initializeGame(filtered);
 }
