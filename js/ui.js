@@ -17,7 +17,7 @@ export function renderDraftOptions(options) {
 
     card.innerHTML = `
     <h3>${pokemon.name}</h3>
-    <p>Tier: ${getTier(pokemon.bst)}</p>
+    ${gameState.config.showBST ? `<p>BST: ${pokemon.bst}</p>` : ""}
     `;
 
     card.addEventListener("dragstart", (e) => {

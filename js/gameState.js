@@ -18,6 +18,12 @@ export function initializeGame(pokemonData) {
     gameState.currentOptimalIndex = 0;
     gameState.optimalResults = null;
     gameState.originalData = pokemonData;
+    gameState.config = {
+        generations: [],
+        showBST: false,
+        types: [],
+        fullyEvolvedOnly: true
+    };
     gameState.statAssignments = {
         hp: null,
         atk: null,
@@ -209,6 +215,9 @@ function restartGame() {
     document.getElementById("results-screen").innerHTML = "";
     document.getElementById("finish-draft-btn").style.display = "none";
     document.getElementById("finish-draft-btn").disabled = false;
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("config-screen").style.display = "block";
+
 
     document.getElementById("draft-options").innerHTML = "";
     document.querySelectorAll(".stat-slot").forEach(slot => {
@@ -218,4 +227,48 @@ function restartGame() {
 
     // Restart game state
     initializeGame(gameState.originalData);
+}
+
+export function startGameWithConfig(pokemonData) {
+
+  const selectedGens = [...document.querySelectorAll("#gen-checkboxes input:checked")]
+    .map(cb => Number(cb.value));
+
+  const selectedTypes = [...document.querySelectorAll("#type-checkboxes input:checked")]
+    .map(cb => cb.value);
+
+  const showBST = document.getElementById("show-bst").checked;
+  const fullyEvolvedOnly = document.getElementById("fully-evolved").checked;
+
+  let filtered = pokemonData.filter(p =>
+    selectedGens.includes(p.generation)
+  );
+
+  if (fullyEvolvedOnly) {
+    filtered = filtered.filter(p => p.fullyEvolved);
+  }
+
+  if (selectedTypes.length > 0) {
+    filtered = filtered.filter(p =>
+      p.types.some(t => selectedTypes.includes(t))
+    );
+  }
+
+  if (filtered.length < 18) {
+    document.getElementById("config-warning").textContent =
+      "Not enough Pokémon for a draft.";
+    return;
+  }
+
+  gameState.config = {
+    generations: selectedGens,
+    showBST,
+    types: selectedTypes,
+    fullyEvolvedOnly
+  };
+
+  document.getElementById("config-screen").style.display = "none";
+  document.getElementById("game-container").style.display = "block";
+
+  initializeGame(filtered);
 }

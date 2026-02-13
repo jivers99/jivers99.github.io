@@ -9,7 +9,40 @@
 
     <h1>PokéDraft</h1>
 
-    <div id="game-container">
+    <div id="config-screen">
+
+        <h1>PokéDraft</h1>
+
+        <h3>Generations</h3>
+        <div id="gen-checkboxes"></div>
+
+        <h3>Game Options</h3>
+
+        <label>
+            <input type="checkbox" id="show-bst">
+            Show BST (Easy Mode)
+        </label>
+
+        <br><br>
+
+        <label>
+            <input type="checkbox" id="fully-evolved" checked>
+            Only Fully Evolved
+        </label>
+
+        <h3>Types</h3>
+        <div id="type-checkboxes"></div>
+
+        <br>
+
+        <button id="start-game-btn">Start Game</button>
+
+        <p id="config-warning" style="color:red;"></p>
+
+    </div>
+
+
+    <div id="game-container" style="display:none;">
 
         <div id="round-info"></div>
 
