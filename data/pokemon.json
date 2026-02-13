@@ -2783,5 +2783,1854 @@
       "spd": 100,
       "spe": 100
     }
+  },
+  {
+    "name": "Chikorita",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 318,
+    "types": [
+      "Grass"
+    ],
+    "stats": {
+      "hp": 45,
+      "atk": 49,
+      "def": 65,
+      "spa": 49,
+      "spd": 65,
+      "spe": 45
+    }
+  },
+  {
+    "name": "Bayleef",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 405,
+    "types": [
+      "Grass"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 62,
+      "def": 80,
+      "spa": 63,
+      "spd": 80,
+      "spe": 60
+    }
+  },
+  {
+    "name": "Meganium",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 525,
+    "types": [
+      "Grass"
+    ],
+    "stats": {
+      "hp": 80,
+      "atk": 82,
+      "def": 100,
+      "spa": 83,
+      "spd": 100,
+      "spe": 80
+    }
+  },
+  {
+    "name": "Cyndaquil",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 309,
+    "types": [
+      "Fire"
+    ],
+    "stats": {
+      "hp": 39,
+      "atk": 52,
+      "def": 43,
+      "spa": 60,
+      "spd": 50,
+      "spe": 65
+    }
+  },
+  {
+    "name": "Quilava",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 405,
+    "types": [
+      "Fire"
+    ],
+    "stats": {
+      "hp": 58,
+      "atk": 64,
+      "def": 58,
+      "spa": 80,
+      "spd": 65,
+      "spe": 80
+    }
+  },
+  {
+    "name": "Typhlosion",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 534,
+    "types": [
+      "Fire"
+    ],
+    "stats": {
+      "hp": 78,
+      "atk": 84,
+      "def": 78,
+      "spa": 109,
+      "spd": 85,
+      "spe": 100
+    }
+  },
+  {
+    "name": "Totodile",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 314,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 64,
+      "spa": 44,
+      "spd": 48,
+      "spe": 43
+    }
+  },
+  {
+    "name": "Croconaw",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 405,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 80,
+      "def": 80,
+      "spa": 59,
+      "spd": 63,
+      "spe": 58
+    }
+  },
+  {
+    "name": "Feraligatr",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 530,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 85,
+      "atk": 105,
+      "def": 100,
+      "spa": 79,
+      "spd": 83,
+      "spe": 78
+    }
+  },
+  {
+    "name": "Sentret",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 215,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 35,
+      "atk": 46,
+      "def": 34,
+      "spa": 35,
+      "spd": 45,
+      "spe": 20
+    }
+  },
+  {
+    "name": "Furret",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 415,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 85,
+      "atk": 76,
+      "def": 64,
+      "spa": 45,
+      "spd": 55,
+      "spe": 90
+    }
+  },
+  {
+    "name": "Hoothoot",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 262,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 30,
+      "def": 30,
+      "spa": 36,
+      "spd": 56,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Noctowl",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 452,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 50,
+      "def": 50,
+      "spa": 86,
+      "spd": 96,
+      "spe": 70
+    }
+  },
+  {
+    "name": "Ledyba",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 265,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 40,
+      "atk": 20,
+      "def": 30,
+      "spa": 40,
+      "spd": 80,
+      "spe": 55
+    }
+  },
+  {
+    "name": "Ledian",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 390,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 35,
+      "def": 50,
+      "spa": 55,
+      "spd": 110,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Spinarak",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 250,
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "stats": {
+      "hp": 40,
+      "atk": 60,
+      "def": 40,
+      "spa": 40,
+      "spd": 40,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Ariados",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 400,
+    "types": [
+      "Bug",
+      "Poison"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 90,
+      "def": 70,
+      "spa": 60,
+      "spd": 70,
+      "spe": 40
+    }
+  },
+  {
+    "name": "Crobat",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 535,
+    "types": [
+      "Poison",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 85,
+      "atk": 90,
+      "def": 80,
+      "spa": 70,
+      "spd": 80,
+      "spe": 130
+    }
+  },
+  {
+    "name": "Chinchou",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 330,
+    "types": [
+      "Water",
+      "Electric"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 38,
+      "def": 38,
+      "spa": 56,
+      "spd": 56,
+      "spe": 67
+    }
+  },
+  {
+    "name": "Lanturn",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 460,
+    "types": [
+      "Water",
+      "Electric"
+    ],
+    "stats": {
+      "hp": 125,
+      "atk": 58,
+      "def": 58,
+      "spa": 76,
+      "spd": 76,
+      "spe": 67
+    }
+  },
+  {
+    "name": "Pichu",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 205,
+    "types": [
+      "Electric"
+    ],
+    "stats": {
+      "hp": 20,
+      "atk": 40,
+      "def": 15,
+      "spa": 35,
+      "spd": 35,
+      "spe": 60
+    }
+  },
+  {
+    "name": "Cleffa",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 218,
+    "types": [
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 50,
+      "atk": 25,
+      "def": 28,
+      "spa": 45,
+      "spd": 55,
+      "spe": 15
+    }
+  },
+  {
+    "name": "Igglybuff",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 210,
+    "types": [
+      "Normal",
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 30,
+      "def": 15,
+      "spa": 40,
+      "spd": 20,
+      "spe": 15
+    }
+  },
+  {
+    "name": "Togepi",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 245,
+    "types": [
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 35,
+      "atk": 20,
+      "def": 65,
+      "spa": 40,
+      "spd": 65,
+      "spe": 20
+    }
+  },
+  {
+    "name": "Togetic",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 405,
+    "types": [
+      "Fairy",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 40,
+      "def": 85,
+      "spa": 80,
+      "spd": 105,
+      "spe": 40
+    }
+  },
+  {
+    "name": "Natu",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 320,
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 40,
+      "atk": 50,
+      "def": 45,
+      "spa": 70,
+      "spd": 45,
+      "spe": 70
+    }
+  },
+  {
+    "name": "Xatu",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 470,
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 75,
+      "def": 70,
+      "spa": 95,
+      "spd": 70,
+      "spe": 95
+    }
+  },
+  {
+    "name": "Mareep",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 280,
+    "types": [
+      "Electric"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 40,
+      "def": 40,
+      "spa": 65,
+      "spd": 45,
+      "spe": 35
+    }
+  },
+  {
+    "name": "Flaaffy",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 365,
+    "types": [
+      "Electric"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 55,
+      "def": 55,
+      "spa": 80,
+      "spd": 60,
+      "spe": 45
+    }
+  },
+  {
+    "name": "Ampharos",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 510,
+    "types": [
+      "Electric"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 75,
+      "def": 85,
+      "spa": 115,
+      "spd": 90,
+      "spe": 55
+    }
+  },
+  {
+    "name": "Bellossom",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 490,
+    "types": [
+      "Grass"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 80,
+      "def": 95,
+      "spa": 90,
+      "spd": 100,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Marill",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 250,
+    "types": [
+      "Water",
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 20,
+      "def": 50,
+      "spa": 20,
+      "spd": 50,
+      "spe": 40
+    }
+  },
+  {
+    "name": "Azumarill",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 420,
+    "types": [
+      "Water",
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 50,
+      "def": 80,
+      "spa": 60,
+      "spd": 80,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Sudowoodo",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 410,
+    "types": [
+      "Rock"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 100,
+      "def": 115,
+      "spa": 30,
+      "spd": 65,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Politoed",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 500,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 75,
+      "def": 75,
+      "spa": 90,
+      "spd": 100,
+      "spe": 70
+    }
+  },
+  {
+    "name": "Hoppip",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 250,
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 35,
+      "atk": 35,
+      "def": 40,
+      "spa": 35,
+      "spd": 55,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Skiploom",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 340,
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 45,
+      "def": 50,
+      "spa": 45,
+      "spd": 65,
+      "spe": 80
+    }
+  },
+  {
+    "name": "Jumpluff",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 460,
+    "types": [
+      "Grass",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 55,
+      "def": 70,
+      "spa": 55,
+      "spd": 95,
+      "spe": 110
+    }
+  },
+  {
+    "name": "Aipom",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 360,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 70,
+      "def": 55,
+      "spa": 40,
+      "spd": 55,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Sunkern",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 180,
+    "types": [
+      "Grass"
+    ],
+    "stats": {
+      "hp": 30,
+      "atk": 30,
+      "def": 30,
+      "spa": 30,
+      "spd": 30,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Sunflora",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 425,
+    "types": [
+      "Grass"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 75,
+      "def": 55,
+      "spa": 105,
+      "spd": 85,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Yanma",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 390,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 65,
+      "def": 45,
+      "spa": 75,
+      "spd": 45,
+      "spe": 95
+    }
+  },
+  {
+    "name": "Wooper",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 210,
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 45,
+      "def": 45,
+      "spa": 25,
+      "spd": 25,
+      "spe": 15
+    }
+  },
+  {
+    "name": "Quagsire",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 430,
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 95,
+      "atk": 85,
+      "def": 85,
+      "spa": 65,
+      "spd": 65,
+      "spe": 35
+    }
+  },
+  {
+    "name": "Espeon",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 525,
+    "types": [
+      "Psychic"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 65,
+      "def": 60,
+      "spa": 130,
+      "spd": 95,
+      "spe": 110
+    }
+  },
+  {
+    "name": "Umbreon",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 525,
+    "types": [
+      "Dark"
+    ],
+    "stats": {
+      "hp": 95,
+      "atk": 65,
+      "def": 110,
+      "spa": 60,
+      "spd": 130,
+      "spe": 65
+    }
+  },
+  {
+    "name": "Murkrow",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 405,
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 85,
+      "def": 42,
+      "spa": 85,
+      "spd": 42,
+      "spe": 91
+    }
+  },
+  {
+    "name": "Slowking",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 490,
+    "types": [
+      "Water",
+      "Psychic"
+    ],
+    "stats": {
+      "hp": 95,
+      "atk": 75,
+      "def": 80,
+      "spa": 100,
+      "spd": 110,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Misdreavus",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 435,
+    "types": [
+      "Ghost"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 60,
+      "def": 60,
+      "spa": 85,
+      "spd": 85,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Unown",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 336,
+    "types": [
+      "Psychic"
+    ],
+    "stats": {
+      "hp": 48,
+      "atk": 72,
+      "def": 48,
+      "spa": 72,
+      "spd": 48,
+      "spe": 48
+    }
+  },
+  {
+    "name": "Wobbuffet",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 405,
+    "types": [
+      "Psychic"
+    ],
+    "stats": {
+      "hp": 190,
+      "atk": 33,
+      "def": 58,
+      "spa": 33,
+      "spd": 58,
+      "spe": 33
+    }
+  },
+  {
+    "name": "Girafarig",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 455,
+    "types": [
+      "Normal",
+      "Psychic"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 80,
+      "def": 65,
+      "spa": 90,
+      "spd": 65,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Pineco",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 290,
+    "types": [
+      "Bug"
+    ],
+    "stats": {
+      "hp": 50,
+      "atk": 65,
+      "def": 90,
+      "spa": 35,
+      "spd": 35,
+      "spe": 15
+    }
+  },
+  {
+    "name": "Forretress",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 465,
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 90,
+      "def": 140,
+      "spa": 60,
+      "spd": 60,
+      "spe": 40
+    }
+  },
+  {
+    "name": "Dunsparce",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 415,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 70,
+      "def": 70,
+      "spa": 65,
+      "spd": 65,
+      "spe": 45
+    }
+  },
+  {
+    "name": "Gligar",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 430,
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 75,
+      "def": 105,
+      "spa": 35,
+      "spd": 65,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Steelix",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 510,
+    "types": [
+      "Steel",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 85,
+      "def": 200,
+      "spa": 55,
+      "spd": 65,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Snubbull",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 300,
+    "types": [
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 80,
+      "def": 50,
+      "spa": 40,
+      "spd": 40,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Granbull",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 450,
+    "types": [
+      "Fairy"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 120,
+      "def": 75,
+      "spa": 60,
+      "spd": 60,
+      "spe": 45
+    }
+  },
+  {
+    "name": "Qwilfish",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 440,
+    "types": [
+      "Water",
+      "Poison"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 95,
+      "def": 85,
+      "spa": 55,
+      "spd": 55,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Scizor",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 500,
+    "types": [
+      "Bug",
+      "Steel"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 130,
+      "def": 100,
+      "spa": 55,
+      "spd": 80,
+      "spe": 65
+    }
+  },
+  {
+    "name": "Shuckle",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 505,
+    "types": [
+      "Bug",
+      "Rock"
+    ],
+    "stats": {
+      "hp": 20,
+      "atk": 10,
+      "def": 230,
+      "spa": 10,
+      "spd": 230,
+      "spe": 5
+    }
+  },
+  {
+    "name": "Heracross",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 500,
+    "types": [
+      "Bug",
+      "Fighting"
+    ],
+    "stats": {
+      "hp": 80,
+      "atk": 125,
+      "def": 75,
+      "spa": 40,
+      "spd": 95,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Sneasel",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 430,
+    "types": [
+      "Dark",
+      "Ice"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 95,
+      "def": 55,
+      "spa": 35,
+      "spd": 75,
+      "spe": 115
+    }
+  },
+  {
+    "name": "Teddiursa",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 330,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 80,
+      "def": 50,
+      "spa": 50,
+      "spd": 50,
+      "spe": 40
+    }
+  },
+  {
+    "name": "Ursaring",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 500,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 130,
+      "def": 75,
+      "spa": 75,
+      "spd": 75,
+      "spe": 55
+    }
+  },
+  {
+    "name": "Slugma",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 250,
+    "types": [
+      "Fire"
+    ],
+    "stats": {
+      "hp": 40,
+      "atk": 40,
+      "def": 40,
+      "spa": 70,
+      "spd": 40,
+      "spe": 20
+    }
+  },
+  {
+    "name": "Magcargo",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 430,
+    "types": [
+      "Fire",
+      "Rock"
+    ],
+    "stats": {
+      "hp": 60,
+      "atk": 50,
+      "def": 120,
+      "spa": 90,
+      "spd": 80,
+      "spe": 30
+    }
+  },
+  {
+    "name": "Swinub",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 250,
+    "types": [
+      "Ice",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 50,
+      "atk": 50,
+      "def": 40,
+      "spa": 30,
+      "spd": 30,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Piloswine",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 450,
+    "types": [
+      "Ice",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 100,
+      "def": 80,
+      "spa": 60,
+      "spd": 60,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Corsola",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 410,
+    "types": [
+      "Water",
+      "Rock"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 55,
+      "def": 95,
+      "spa": 65,
+      "spd": 95,
+      "spe": 35
+    }
+  },
+  {
+    "name": "Remoraid",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 300,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 35,
+      "atk": 65,
+      "def": 35,
+      "spa": 65,
+      "spd": 35,
+      "spe": 65
+    }
+  },
+  {
+    "name": "Octillery",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 480,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 105,
+      "def": 75,
+      "spa": 105,
+      "spd": 75,
+      "spe": 45
+    }
+  },
+  {
+    "name": "Delibird",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 330,
+    "types": [
+      "Ice",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 45,
+      "atk": 55,
+      "def": 45,
+      "spa": 65,
+      "spd": 45,
+      "spe": 75
+    }
+  },
+  {
+    "name": "Mantine",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 485,
+    "types": [
+      "Water",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 85,
+      "atk": 40,
+      "def": 70,
+      "spa": 80,
+      "spd": 140,
+      "spe": 70
+    }
+  },
+  {
+    "name": "Skarmory",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 465,
+    "types": [
+      "Steel",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 65,
+      "atk": 80,
+      "def": 140,
+      "spa": 40,
+      "spd": 70,
+      "spe": 70
+    }
+  },
+  {
+    "name": "Houndour",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 330,
+    "types": [
+      "Dark",
+      "Fire"
+    ],
+    "stats": {
+      "hp": 45,
+      "atk": 60,
+      "def": 30,
+      "spa": 80,
+      "spd": 50,
+      "spe": 65
+    }
+  },
+  {
+    "name": "Houndoom",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 500,
+    "types": [
+      "Dark",
+      "Fire"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 90,
+      "def": 50,
+      "spa": 110,
+      "spd": 80,
+      "spe": 95
+    }
+  },
+  {
+    "name": "Kingdra",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 540,
+    "types": [
+      "Water",
+      "Dragon"
+    ],
+    "stats": {
+      "hp": 75,
+      "atk": 95,
+      "def": 95,
+      "spa": 95,
+      "spd": 95,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Phanpy",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 330,
+    "types": [
+      "Ground"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 60,
+      "def": 60,
+      "spa": 40,
+      "spd": 40,
+      "spe": 40
+    }
+  },
+  {
+    "name": "Donphan",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 500,
+    "types": [
+      "Ground"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 120,
+      "def": 120,
+      "spa": 60,
+      "spd": 60,
+      "spe": 50
+    }
+  },
+  {
+    "name": "Porygon2",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 515,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 85,
+      "atk": 80,
+      "def": 90,
+      "spa": 105,
+      "spd": 95,
+      "spe": 60
+    }
+  },
+  {
+    "name": "Stantler",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 465,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 73,
+      "atk": 95,
+      "def": 62,
+      "spa": 85,
+      "spd": 65,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Smeargle",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 250,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 55,
+      "atk": 20,
+      "def": 35,
+      "spa": 20,
+      "spd": 45,
+      "spe": 75
+    }
+  },
+  {
+    "name": "Tyrogue",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 210,
+    "types": [
+      "Fighting"
+    ],
+    "stats": {
+      "hp": 35,
+      "atk": 35,
+      "def": 35,
+      "spa": 35,
+      "spd": 35,
+      "spe": 35
+    }
+  },
+  {
+    "name": "Hitmontop",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 455,
+    "types": [
+      "Fighting"
+    ],
+    "stats": {
+      "hp": 50,
+      "atk": 95,
+      "def": 95,
+      "spa": 35,
+      "spd": 110,
+      "spe": 70
+    }
+  },
+  {
+    "name": "Smoochum",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 305,
+    "types": [
+      "Ice",
+      "Psychic"
+    ],
+    "stats": {
+      "hp": 45,
+      "atk": 30,
+      "def": 15,
+      "spa": 85,
+      "spd": 65,
+      "spe": 65
+    }
+  },
+  {
+    "name": "Elekid",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 360,
+    "types": [
+      "Electric"
+    ],
+    "stats": {
+      "hp": 45,
+      "atk": 63,
+      "def": 37,
+      "spa": 65,
+      "spd": 55,
+      "spe": 95
+    }
+  },
+  {
+    "name": "Magby",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 365,
+    "types": [
+      "Fire"
+    ],
+    "stats": {
+      "hp": 45,
+      "atk": 75,
+      "def": 37,
+      "spa": 70,
+      "spd": 55,
+      "spe": 83
+    }
+  },
+  {
+    "name": "Miltank",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 490,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 95,
+      "atk": 80,
+      "def": 105,
+      "spa": 40,
+      "spd": 70,
+      "spe": 100
+    }
+  },
+  {
+    "name": "Blissey",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 540,
+    "types": [
+      "Normal"
+    ],
+    "stats": {
+      "hp": 255,
+      "atk": 10,
+      "def": 10,
+      "spa": 75,
+      "spd": 135,
+      "spe": 55
+    }
+  },
+  {
+    "name": "Raikou",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 580,
+    "types": [
+      "Electric"
+    ],
+    "stats": {
+      "hp": 90,
+      "atk": 85,
+      "def": 75,
+      "spa": 115,
+      "spd": 100,
+      "spe": 115
+    }
+  },
+  {
+    "name": "Entei",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 580,
+    "types": [
+      "Fire"
+    ],
+    "stats": {
+      "hp": 115,
+      "atk": 115,
+      "def": 85,
+      "spa": 90,
+      "spd": 75,
+      "spe": 100
+    }
+  },
+  {
+    "name": "Suicune",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 580,
+    "types": [
+      "Water"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 75,
+      "def": 115,
+      "spa": 90,
+      "spd": 115,
+      "spe": 85
+    }
+  },
+  {
+    "name": "Larvitar",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 300,
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 50,
+      "atk": 64,
+      "def": 50,
+      "spa": 45,
+      "spd": 50,
+      "spe": 41
+    }
+  },
+  {
+    "name": "Pupitar",
+    "generation": 2,
+    "fullyEvolved": false,
+    "legendary": false,
+    "bst": 410,
+    "types": [
+      "Rock",
+      "Ground"
+    ],
+    "stats": {
+      "hp": 70,
+      "atk": 84,
+      "def": 70,
+      "spa": 65,
+      "spd": 70,
+      "spe": 51
+    }
+  },
+  {
+    "name": "Tyranitar",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 600,
+    "types": [
+      "Rock",
+      "Dark"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 134,
+      "def": 110,
+      "spa": 95,
+      "spd": 100,
+      "spe": 61
+    }
+  },
+  {
+    "name": "Lugia",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 680,
+    "types": [
+      "Psychic",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 106,
+      "atk": 90,
+      "def": 130,
+      "spa": 90,
+      "spd": 154,
+      "spe": 110
+    }
+  },
+  {
+    "name": "Ho-oh",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 680,
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "stats": {
+      "hp": 106,
+      "atk": 130,
+      "def": 90,
+      "spa": 110,
+      "spd": 154,
+      "spe": 90
+    }
+  },
+  {
+    "name": "Celebi",
+    "generation": 2,
+    "fullyEvolved": true,
+    "legendary": false,
+    "bst": 600,
+    "types": [
+      "Psychic",
+      "Grass"
+    ],
+    "stats": {
+      "hp": 100,
+      "atk": 100,
+      "def": 100,
+      "spa": 100,
+      "spd": 100,
+      "spe": 100
+    }
   }
 ]

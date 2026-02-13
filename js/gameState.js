@@ -7,7 +7,7 @@ export function initializeGame(pokemonData) {
 
     const filtered = pokemonData.filter(p =>
         p.fullyEvolved &&
-        p.generation === 1
+        [1,2].includes(p.generation)
     );
 
     gameState.round = 1;

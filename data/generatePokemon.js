@@ -61,7 +61,7 @@ async function fetchPokemon(id) {
 
     return {
         name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
-        generation: 1,
+        generation: id <= 151 ? 1 : 2,
         fullyEvolved: isFullyEvolved(evoData.chain, data.name),
         legendary: false,
         bst: bst,
@@ -76,7 +76,7 @@ async function fetchPokemon(id) {
 async function generate() {
     const pokemonList = [];
 
-    for (let i = 1; i <= 151; i++) {
+    for (let i = 1; i <= 251; i++) {
         console.log(`Fetching Pokémon #${i}...`);
         const p = await fetchPokemon(i);
         pokemonList.push(p);
