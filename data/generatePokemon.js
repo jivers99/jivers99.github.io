@@ -1,11 +1,60 @@
 const fs = require("fs");
 
-async function fetchPokemon(id) {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const data = await res.json();
+function parseGeneration(genName) {
+  const map = {
+    "generation-i": 1,
+    "generation-ii": 2,
+    "generation-iii": 3,
+    "generation-iv": 4,
+    "generation-v": 5,
+    "generation-vi": 6,
+    "generation-vii": 7,
+    "generation-viii": 8,
+    "generation-ix": 9
+  };
 
-    const speciesRes = await fetch(data.species.url);
-    const speciesData = await speciesRes.json();
+  return map[genName] || null;
+}
+
+async function fetchWithRetry(url, retries = 5, delay = 500) {
+
+  for (let attempt = 1; attempt <= retries; attempt++) {
+
+    try {
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      return await res.json();
+
+    } catch (err) {
+
+      console.log(`Retry ${attempt} for ${url}`);
+
+      if (attempt === retries) {
+        console.error(`FAILED: ${url}`);
+        return null;
+      }
+
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+}
+
+async function fetchPokemon(id) {
+    const data = await fetchWithRetry(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    if (!data) return null;
+
+    if (!data.is_default) {
+        return null;
+    }
+
+    const speciesData = await fetchWithRetry(data.species.url);
+    if (!speciesData) return null;
+
+    const generation = parseGeneration(speciesData.generation.name);
 
     const stats = {};
     let bst = 0;
@@ -38,8 +87,8 @@ async function fetchPokemon(id) {
         bst += value;
     });
 
-    const evoRes = await fetch(speciesData.evolution_chain.url);
-    const evoData = await evoRes.json();
+    const evoData = await fetchWithRetry(speciesData.evolution_chain.url);
+    if (!evoData) return null;
 
     function findChainNode(chainNode, targetName) {
     if (chainNode.species.name === targetName) return chainNode;
@@ -61,7 +110,7 @@ async function fetchPokemon(id) {
 
     return {
         name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
-        generation: id <= 151 ? 1 : 2,
+        generation: generation,
         fullyEvolved: isFullyEvolved(evoData.chain, data.name),
         legendary: false,
         bst: bst,
@@ -76,10 +125,12 @@ async function fetchPokemon(id) {
 async function generate() {
     const pokemonList = [];
 
-    for (let i = 1; i <= 251; i++) {
+    for (let i = 1; i <= 1025; i++) {
         console.log(`Fetching Pokémon #${i}...`);
         const p = await fetchPokemon(i);
-        pokemonList.push(p);
+        if (p) {
+            pokemonList.push(p);
+        }
     }
 
     fs.writeFileSync(
